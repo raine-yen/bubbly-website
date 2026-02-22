@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Bubbly Handmade Workshop</title>
+  <meta name="description" content="Meet Mandy and learn the story behind Bubbly Handmade Workshop.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+</head>
+<body data-page="about">
+
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-bubble">🫧</span> Bubbly</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="home">Home</a></li>
+        <li><a href="shop.html" data-i18n="shop">Shop</a></li>
+        <li><a href="about.html" class="active" data-i18n="about">About</a></li>
+        <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+        <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="nav-cart" onclick="toggleCart()">🛒<span class="cart-count"></span></div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="about-hero">
+    <div class="container">
+      <span class="section-tag">🫧 Meet Mandy</span>
+      <h1 data-i18n="aboutHeroTitle">Our Story</h1>
+      <p style="color:var(--text-light);max-width:500px;margin:8px auto 0" data-i18n="aboutHeroSub">The heart and soul behind every bubble.</p>
+    </div>
+  </section>
+
+  <section class="about-story section">
+    <div class="container">
+      <div class="story-content">
+        <h2 data-i18n="aboutStoryTitle">Hi, I'm Mandy 👋</h2>
+        <br>
+        <p data-i18n="aboutStory1">What started as a weekend hobby quickly blossomed into a passion. I fell in love with the art of soap-making — the way dried rose petals catch the light, the calming scent of lavender filling the room, the joy of creating something beautiful with my own hands.</p>
+        <p data-i18n="aboutStory2">Bubbly Handmade Workshop was born from a simple belief: self-care products should be as natural and beautiful as the ingredients that make them. Every item is handcrafted in small batches, using real botanicals and pure essential oils.</p>
+        <p data-i18n="aboutStory3">When you choose Bubbly, you're not just buying a product — you're supporting a family dream and getting a little piece of handmade happiness.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💛 Our Values</span>
+        <h2 data-i18n="valuesTitle">What We Stand For</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card fade-in">
+          <div class="value-icon">🌿</div>
+          <h3 data-i18n="pureTitle">Pure Ingredients</h3>
+          <p data-i18n="pureSub">No harsh chemicals, no artificial colors. Just nature's finest botanicals and essential oils.</p>
+        </div>
+        <div class="value-card fade-in">
+          <div class="value-icon">🤲</div>
+          <h3 data-i18n="craftTitle">Small Batch Craft</h3>
+          <p data-i18n="craftSub">Every item is made by hand in small batches to ensure the highest quality and care.</p>
+        </div>
+        <div class="value-card fade-in">
+          <div class="value-icon">♻️</div>
+          <h3 data-i18n="ecoTitle">Eco-Conscious</h3>
+          <p data-i18n="ecoSub">Sustainable packaging, recyclable materials, and a commitment to reducing our footprint.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Bubbly Handmade Workshop. All rights reserved. Made with 🫧 & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer">
+    <div class="cart-header"><h3 data-i18n="cartTitle">🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span data-i18n="total">Total</span><span class="cart-total-amount">$0.00</span></div>
+      <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

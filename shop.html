@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Bubbly Handmade Workshop</title>
+  <meta name="description" content="Browse our collection of handcrafted soaps, wax melts, candles, and gift sets.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+</head>
+<body data-page="shop">
+
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-bubble">🫧</span> Bubbly</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="home">Home</a></li>
+        <li><a href="shop.html" class="active" data-i18n="shop">Shop</a></li>
+        <li><a href="about.html" data-i18n="about">About</a></li>
+        <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+        <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="nav-cart" onclick="toggleCart()">🛒<span class="cart-count"></span></div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="shop-hero">
+    <div class="container">
+      <span class="section-tag">🫧 Browse & Shop</span>
+      <h1 data-i18n="shopTitle">Our Collection</h1>
+      <p style="color:var(--text-light);max-width:500px;margin:8px auto 0" data-i18n="shopSub">Each product is lovingly handcrafted in small batches using natural ingredients.</p>
+      <div class="category-filters">
+        <button class="filter-btn active" data-filter="all" data-i18n="all">All</button>
+        <button class="filter-btn" data-filter="soaps" data-i18n="soaps">Soaps</button>
+        <button class="filter-btn" data-filter="wax-melts" data-i18n="waxMelts">Wax Melts</button>
+        <button class="filter-btn" data-filter="candles" data-i18n="candles">Candles</button>
+        <button class="filter-btn" data-filter="gift-sets" data-i18n="giftSets">Gift Sets</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="shop-grid">
+    <div class="container">
+      <div class="product-grid" id="shop-products"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Bubbly Handmade Workshop. All rights reserved. Made with 🫧 & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer">
+    <div class="cart-header">
+      <h3 data-i18n="cartTitle">🛒 Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span data-i18n="total">Total</span>
+        <span class="cart-total-amount">$0.00</span>
+      </div>
+      <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

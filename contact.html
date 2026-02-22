@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Bubbly Handmade Workshop</title>
+  <meta name="description" content="Get in touch with Bubbly Handmade Workshop for questions, custom orders, or collaborations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+</head>
+<body data-page="contact">
+
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo"><span class="logo-bubble">🫧</span> Bubbly</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="home">Home</a></li>
+        <li><a href="shop.html" data-i18n="shop">Shop</a></li>
+        <li><a href="about.html" data-i18n="about">About</a></li>
+        <li><a href="contact.html" class="active" data-i18n="contact">Contact</a></li>
+        <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="nav-cart" onclick="toggleCart()">🛒<span class="cart-count"></span></div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="contact-hero">
+    <div class="container">
+      <span class="section-tag">💌 Say Hello</span>
+      <h1 data-i18n="contactTitle">Get in Touch</h1>
+      <p style="color:var(--text-light);max-width:500px;margin:8px auto 0" data-i18n="contactSub">We'd love to hear from you! Questions, custom orders, or just want to say hi?</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label data-i18n="yourName">Your Name</label>
+            <input type="text" required data-i18n="yourName">
+          </div>
+          <div class="form-group">
+            <label data-i18n="yourEmail">Your Email</label>
+            <input type="email" required data-i18n="yourEmail">
+          </div>
+          <div class="form-group">
+            <label data-i18n="subject">Subject</label>
+            <select>
+              <option>General Inquiry</option>
+              <option>Custom Order</option>
+              <option>Wholesale</option>
+              <option>Collaboration</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-i18n="message">Your Message</label>
+            <textarea required data-i18n="message"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" data-i18n="send">Send Message</button>
+        </form>
+
+        <div class="contact-info-cards">
+          <div class="info-card">
+            <div class="info-card-icon">📧</div>
+            <div>
+              <h4 data-i18n="email">Email</h4>
+              <p>hello@bubblyhandmade.com</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">📸</div>
+            <div>
+              <h4 data-i18n="instagram">Instagram</h4>
+              <p><a href="https://www.instagram.com/bubblyhandmadeworkshopmandy" target="_blank">@bubblyhandmadeworkshopmandy</a></p>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">📍</div>
+            <div>
+              <h4 data-i18n="location">Location</h4>
+              <p>Livermore, California</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Bubbly Handmade Workshop. All rights reserved. Made with 🫧 & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer">
+    <div class="cart-header"><h3 data-i18n="cartTitle">🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span data-i18n="total">Total</span><span class="cart-total-amount">$0.00</span></div>
+      <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

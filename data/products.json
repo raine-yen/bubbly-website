@@ -1,0 +1,162 @@
+[
+  {
+    "id": "rose-petal-dream",
+    "name": "Rose Petal Dream",
+    "nameCn": "玫瑰花瓣之夢",
+    "category": "soaps",
+    "price": 12.99,
+    "description": "A gentle, moisturizing soap infused with real rose petals and rose essential oil. Leaves skin soft and delicately scented.",
+    "descCn": "溫和保濕的手工皂，融入真正的玫瑰花瓣和玫瑰精油，讓肌膚柔嫩細滑。",
+    "color": "#f4c2c2",
+    "emoji": "🌹",
+    "badge": "Bestseller"
+  },
+  {
+    "id": "lavender-serenity",
+    "name": "Lavender Serenity",
+    "nameCn": "薰衣草寧靜",
+    "category": "soaps",
+    "price": 12.99,
+    "description": "Calming lavender soap with dried lavender buds. Perfect for unwinding after a long day.",
+    "descCn": "鎮靜的薰衣草手工皂，搭配乾燥薰衣草花苞，適合疲憊一天後的放鬆時光。",
+    "color": "#c8a2c8",
+    "emoji": "💜"
+  },
+  {
+    "id": "honey-oat-glow",
+    "name": "Honey & Oat Glow",
+    "nameCn": "蜂蜜燕麥光澤",
+    "category": "soaps",
+    "price": 11.99,
+    "description": "Nourishing honey and oatmeal soap that gently exfoliates and hydrates. A warm, sweet treat for your skin.",
+    "descCn": "滋養的蜂蜜燕麥皂，溫和去角質同時保濕，為肌膚帶來溫暖甜蜜的呵護。",
+    "color": "#f5deb3",
+    "emoji": "🍯"
+  },
+  {
+    "id": "ocean-breeze",
+    "name": "Ocean Breeze",
+    "nameCn": "海洋微風",
+    "category": "soaps",
+    "price": 12.99,
+    "description": "Refreshing sea mineral soap with a crisp, clean scent that invigorates the senses.",
+    "descCn": "清新的海洋礦物皂，帶有清爽乾淨的香氣，喚醒您的感官。",
+    "color": "#b0e0e6",
+    "emoji": "🌊"
+  },
+  {
+    "id": "sakura-blossom-melt",
+    "name": "Sakura Blossom Melt",
+    "nameCn": "櫻花蠟片",
+    "category": "wax-melts",
+    "price": 8.99,
+    "description": "Delicate cherry blossom scented wax melt adorned with dried pink flowers. Fills your space with spring.",
+    "descCn": "精緻的櫻花香蠟片，點綴乾燥粉色花朵，讓您的空間充滿春天氣息。",
+    "color": "#ffb7c5",
+    "emoji": "🌸"
+  },
+  {
+    "id": "vanilla-chai-melt",
+    "name": "Vanilla Chai Melt",
+    "nameCn": "香草奶茶蠟片",
+    "category": "wax-melts",
+    "price": 8.99,
+    "description": "Warm vanilla and spice wax melt that creates a cozy, inviting atmosphere in any room.",
+    "descCn": "溫暖的香草與香料蠟片，為任何房間營造舒適溫馨的氛圍。",
+    "color": "#f5e6ca",
+    "emoji": "🫖"
+  },
+  {
+    "id": "eucalyptus-mint-melt",
+    "name": "Eucalyptus Mint Melt",
+    "nameCn": "尤加利薄荷蠟片",
+    "category": "wax-melts",
+    "price": 8.99,
+    "description": "Crisp eucalyptus and cool mint wax melt for a spa-like experience at home.",
+    "descCn": "清新的尤加利和涼薄荷蠟片，在家也能享受水療般的體驗。",
+    "color": "#c1e1c1",
+    "emoji": "🌿"
+  },
+  {
+    "id": "autumn-pumpkin-candle",
+    "name": "Autumn Pumpkin",
+    "nameCn": "秋日南瓜",
+    "category": "candles",
+    "price": 16.99,
+    "description": "Adorable pumpkin-shaped soy wax candle with warm cinnamon and spice notes. A cozy autumn essential on marble display.",
+    "descCn": "可愛的南瓜造型大豆蠟蠟燭，帶有溫暖的肉桂和香料調。秋日必備的溫馨擺設。",
+    "color": "#e8a050",
+    "emoji": "🎃",
+    "badge": "Seasonal"
+  },
+  {
+    "id": "golden-hour-candle",
+    "name": "Golden Hour",
+    "nameCn": "金色時光",
+    "category": "candles",
+    "price": 18.99,
+    "description": "A soy wax candle with amber and sandalwood notes, topped with dried botanicals. Burns for 40+ hours.",
+    "descCn": "大豆蠟蠟燭，帶有琥珀和檀香調，頂部裝飾乾燥植物，可燃燒40小時以上。",
+    "color": "#f0c05a",
+    "emoji": "🕯️",
+    "badge": "Popular"
+  },
+  {
+    "id": "moonlit-garden-candle",
+    "name": "Moonlit Garden",
+    "nameCn": "月光花園",
+    "category": "candles",
+    "price": 18.99,
+    "description": "Jasmine and white tea candle with pressed flowers. A dreamy scent for quiet evenings.",
+    "descCn": "茉莉花和白茶蠟燭，搭配壓花裝飾，為寧靜夜晚帶來夢幻香氣。",
+    "color": "#e8e0f0",
+    "emoji": "🌙"
+  },
+  {
+    "id": "maple-leaf-melt",
+    "name": "Maple Leaf Melt",
+    "nameCn": "楓葉蠟片",
+    "category": "wax-melts",
+    "price": 9.99,
+    "description": "Autumn-inspired maple leaf shaped wax melt with warm amber and dried leaf accents. The perfect fall decoration.",
+    "descCn": "秋季靈感的楓葉造型蠟片，帶有溫暖的琥珀香和乾燥葉片裝飾，完美的秋日擺設。",
+    "color": "#d4915a",
+    "emoji": "🍂",
+    "badge": "Seasonal"
+  },
+  {
+    "id": "mooncake-gift-box",
+    "name": "Mooncake Candle Gift Box",
+    "nameCn": "月餅蠟燭禮盒",
+    "category": "gift-sets",
+    "price": 38.99,
+    "description": "Mid-Autumn Festival special — four beautifully detailed mooncake-shaped candles with a bunny figure, presented in an elegant black gift box with a heart card.",
+    "descCn": "中秋節特別版——四個精緻月餅造型蠟燭搭配兔子擺件，裝在典雅黑色禮盒中，附心形賀卡。",
+    "color": "#f5e0b8",
+    "emoji": "🥮",
+    "badge": "Festival"
+  },
+  {
+    "id": "self-care-bundle",
+    "name": "Self-Care Bundle",
+    "nameCn": "自我呵護禮盒",
+    "category": "gift-sets",
+    "price": 34.99,
+    "description": "A curated gift set with one soap, one wax melt, and one candle — beautifully wrapped and ready to give.",
+    "descCn": "精心策劃的禮盒，包含一塊手工皂、一片蠟片和一支蠟燭，精美包裝，送禮首選。",
+    "color": "#fce4ec",
+    "emoji": "🎁",
+    "badge": "Gift"
+  },
+  {
+    "id": "floral-bliss-bundle",
+    "name": "Floral Bliss Bundle",
+    "nameCn": "花卉幸福禮盒",
+    "category": "gift-sets",
+    "price": 42.99,
+    "description": "Our premium gift set featuring three soaps and two wax melts in a handcrafted wooden box.",
+    "descCn": "我們的高級禮盒，包含三塊手工皂和兩片蠟片，裝在手工木盒中。",
+    "color": "#f8e8ee",
+    "emoji": "💐"
+  }
+]

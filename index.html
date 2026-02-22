@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubbly Handmade Workshop — Artisanal Soaps, Candles & Wax Melts</title>
+  <meta name="description" content="Handcrafted soaps, wax melts, and candles made with real dried flowers and pure essential oils. Every scent tells a story.">
+  <meta property="og:title" content="Bubbly Handmade Workshop">
+  <meta property="og:description" content="Artisanal soaps, candles & wax melts handcrafted with love and botanicals.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+</head>
+<body data-page="home">
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <span class="logo-bubble">🫧</span>
+        Bubbly
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active" data-i18n="home">Home</a></li>
+        <li><a href="shop.html" data-i18n="shop">Shop</a></li>
+        <li><a href="about.html" data-i18n="about">About</a></li>
+        <li><a href="contact.html" data-i18n="contact">Contact</a></li>
+        <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="nav-cart" onclick="toggleCart()">
+          🛒<span class="cart-count"></span>
+        </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 data-i18n="heroTitle">Handcrafted with <span>Love</span> & Botanicals</h1>
+        <p class="hero-subtitle" data-i18n="heroSub">Every scent tells a story. Discover artisanal soaps, wax melts, and candles made with real dried flowers and pure essential oils.</p>
+        <div class="hero-buttons">
+          <a href="shop.html" class="btn btn-primary" data-i18n="shopNow">Shop Now</a>
+          <a href="about.html" class="btn btn-secondary" data-i18n="ourStory">Our Story</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-emoji">🌹</div>
+          <div class="hero-card-label">Rose Soaps</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-emoji">🕯️</div>
+          <div class="hero-card-label">Candles</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-emoji">🌸</div>
+          <div class="hero-card-label">Wax Melts</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-emoji">🎁</div>
+          <div class="hero-card-label">Gift Sets</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="featuredTag">✨ Handpicked for You</span>
+        <h2 data-i18n="featuredTitle">Featured Products</h2>
+        <p data-i18n="featuredSub">Our most loved creations, made with care in small batches.</p>
+      </div>
+      <div class="product-grid" id="featured-products"></div>
+      <div class="text-center" style="margin-top:40px">
+        <a href="shop.html" class="btn btn-primary" data-i18n="shopNow">Shop Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Preview -->
+  <section class="about-preview section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-placeholder">🧼✨</div>
+        <div class="about-text">
+          <span class="section-tag" data-i18n="aboutTag">🌿 Our Philosophy</span>
+          <h2 data-i18n="aboutTitle">Made by Hand, Given with Heart</h2>
+          <p data-i18n="aboutText1">Every bar of soap, every wax melt, and every candle is handcrafted by Mandy with love and intention. We believe self-care should be beautiful, natural, and accessible.</p>
+          <p data-i18n="aboutText2">Using only the finest botanicals, essential oils, and sustainable ingredients — because your skin deserves the best.</p>
+          <a href="about.html" class="btn btn-secondary" data-i18n="learnMore">Learn More</a>
+          <div class="about-values">
+            <div class="about-value">
+              <div class="about-value-icon">🌿</div>
+              <div class="about-value-label" data-i18n="natural">Natural</div>
+            </div>
+            <div class="about-value">
+              <div class="about-value-icon">🤲</div>
+              <div class="about-value-label" data-i18n="handmade">Handmade</div>
+            </div>
+            <div class="about-value">
+              <div class="about-value-icon">♻️</div>
+              <div class="about-value-label" data-i18n="sustainable">Sustainable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram -->
+  <section class="instagram-section section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="instaTag">📸 Follow Us</span>
+        <h2 data-i18n="instaTitle">@bubblyhandmadeworkshopmandy</h2>
+        <p data-i18n="instaSub">Follow our journey on Instagram for behind-the-scenes, new launches, and daily inspiration.</p>
+      </div>
+      <div class="insta-grid">
+        <div class="insta-item">
+          <div class="insta-placeholder" style="background:#f4c2c2">🌹</div>
+          <div class="insta-overlay">♡</div>
+        </div>
+        <div class="insta-item">
+          <div class="insta-placeholder" style="background:#c8a2c8">💜</div>
+          <div class="insta-overlay">♡</div>
+        </div>
+        <div class="insta-item">
+          <div class="insta-placeholder" style="background:#f5e6ca">🕯️</div>
+          <div class="insta-overlay">♡</div>
+        </div>
+        <div class="insta-item">
+          <div class="insta-placeholder" style="background:#ffb7c5">🌸</div>
+          <div class="insta-overlay">♡</div>
+        </div>
+      </div>
+      <div class="text-center" style="margin-top:32px">
+        <a href="https://www.instagram.com/bubblyhandmadeworkshopmandy" target="_blank" class="btn btn-primary" data-i18n="followUs">Follow on Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo"><span class="logo-bubble">🫧</span> Bubbly</div>
+          <p>Handcrafted soaps, wax melts, and candles made with love and real botanicals.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/bubblyhandmadeworkshopmandy" target="_blank">📸</a>
+          </div>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html">Soaps</a></li>
+            <li><a href="shop.html">Wax Melts</a></li>
+            <li><a href="shop.html">Candles</a></li>
+            <li><a href="shop.html">Gift Sets</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="https://www.instagram.com/bubblyhandmadeworkshopmandy" target="_blank">Instagram</a></li>
+            <li><a href="mailto:hello@bubblyhandmade.com">Email Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Bubbly Handmade Workshop. All rights reserved. Made with 🫧 & ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer">
+    <div class="cart-header">
+      <h3 data-i18n="cartTitle">🛒 Your Cart</h3>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span data-i18n="total">Total</span>
+        <span class="cart-total-amount">$0.00</span>
+      </div>
+      <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
