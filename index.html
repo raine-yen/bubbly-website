@@ -11,9 +11,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/enhancements.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
 </head>
 <body data-page="home">
+
+  <!-- Skip to Content (Accessibility) -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- Header -->
   <header class="header">
@@ -39,7 +43,7 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" id="main-content">
     <div class="hero-content">
       <div class="hero-text">
         <h1 data-i18n="heroTitle">Handcrafted with <span>Love</span> & Botanicals</h1>
@@ -147,6 +151,67 @@
     </div>
   </section>
 
+  <!-- Testimonials -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💬 Happy Customers</span>
+        <h2>What People Are Saying</h2>
+        <p>Real reviews from our bubbly community.</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"The Rose Petal Dream soap is absolutely heavenly! My bathroom smells like a garden now. The dried petals on top are such a beautiful touch."</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:var(--pink-light)">🌸</div>
+            <div>
+              <div class="testimonial-name">Sarah L.</div>
+              <div class="testimonial-product">Rose Petal Dream</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Bought the Mooncake Gift Box for my mom's birthday — she was SO impressed! The packaging is gorgeous and the candles smell amazing."</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:var(--gold-light)">🥮</div>
+            <div>
+              <div class="testimonial-name">Kevin W.</div>
+              <div class="testimonial-product">Mooncake Candle Gift Box</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Those little pumpkin candles are the cutest thing ever! They look so realistic on my shelf. Already ordering more for my friends."</div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:var(--sage-light)">🎃</div>
+            <div>
+              <div class="testimonial-name">Emily T.</div>
+              <div class="testimonial-product">Autumn Pumpkin Candle</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">💌 Stay in the Loop</span>
+        <h2>Join the Bubbly Family</h2>
+        <p>Be the first to know about new products, seasonal drops, and exclusive offers.</p>
+      </div>
+      <form class="newsletter-form" id="newsletter-form">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit" class="btn btn-gold">Subscribe 💕</button>
+      </form>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -206,5 +271,6 @@
   </div>
 
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/enhancements.js"></script>
 </body>
 </html>
