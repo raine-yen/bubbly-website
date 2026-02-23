@@ -66,7 +66,10 @@ const i18n = {
     total: 'Total',
     checkout: 'Checkout with Stripe',
     addedToCart: 'Added to cart!',
-    home: 'Home', shop: 'Shop', about: 'About', contact: 'Contact',
+    workshopTitle: 'Workshops & Classes',
+    workshopSub: 'Handcraft your own aromatherapy creations.',
+    bookClass: 'Book a Class',
+    home: 'Home', shop: 'Shop', workshops: 'Workshops', about: 'About', contact: 'Contact',
   },
   zh: {
     heroTitle: '用<span>愛</span>與花草手工製作',
@@ -95,6 +98,9 @@ const i18n = {
     giftSets: '禮盒',
     shopTitle: '我們的系列',
     shopSub: '每件商品都是用天然原料小批量手工精心製作。',
+    workshopTitle: '工作坊與體驗',
+    workshopSub: '親手製作屬於您的香氛與美麗。',
+    bookClass: '預約課程',
     aboutHeroTitle: '我們的故事',
     aboutHeroSub: '每一個泡泡背後的心與靈魂。',
     aboutStoryTitle: '嗨，我是Mandy 👋',
@@ -124,7 +130,7 @@ const i18n = {
     total: '總計',
     checkout: '使用Stripe結帳',
     addedToCart: '已加入購物車！',
-    home: '首頁', shop: '選購', about: '關於', contact: '聯繫',
+    home: '首頁', shop: '選購', workshops: '工作坊', about: '關於', contact: '聯繫',
   }
 };
 
