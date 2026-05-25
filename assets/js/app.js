@@ -15,10 +15,10 @@ const i18n = {
     heroSub: 'Every scent tells a story. Discover artisanal soaps, wax melts, and candles made with real dried flowers and pure essential oils.',
     shopNow: 'Shop Now',
     ourStory: 'Our Story',
-    featuredTag: '✨ Handpicked for You',
+    featuredTag: 'Handpicked for You',
     featuredTitle: 'Featured Products',
     featuredSub: 'Our most loved creations, made with care in small batches.',
-    aboutTag: '🌿 Our Philosophy',
+    aboutTag: 'Our Philosophy',
     aboutTitle: 'Made by Hand, Given with Heart',
     aboutText1: 'Every bar of soap, every wax melt, and every candle is handcrafted by Mandy with love and intention. We believe self-care should be beautiful, natural, and accessible.',
     aboutText2: 'Using only the finest botanicals, essential oils, and sustainable ingredients — because your skin deserves the best.',
@@ -26,8 +26,8 @@ const i18n = {
     natural: 'Natural',
     handmade: 'Handmade',
     sustainable: 'Sustainable',
-    instaTag: '📸 Follow Us',
-    instaTitle: '@bubblyhandmadeworkshopmandy',
+    instaTag: 'Follow Us',
+    instaTitle: '@bubbly._studio',
     instaSub: 'Follow our journey on Instagram for behind-the-scenes, new launches, and daily inspiration.',
     followUs: 'Follow on Instagram',
     all: 'All',
@@ -70,16 +70,24 @@ const i18n = {
     workshopSub: 'Handcraft your own aromatherapy creations.',
     bookClass: 'Book a Class',
     home: 'Home', shop: 'Shop', workshops: 'Workshops', about: 'About', contact: 'Contact',
+    nameRequired: 'Please enter your name',
+    emailInvalid: 'Please enter a valid email address',
+    messageRequired: 'Please enter a message',
+    newsletterSuccess: 'Welcome to the Bubbly family!',
+    newsletterExists: 'You\'re already subscribed!',
+    noResults: 'No products found',
+    noResultsSub: 'Try a different search or browse all products.',
+    cartEmptyAction: 'Browse our collection',
   },
   zh: {
     heroTitle: '用<span>愛</span>與花草手工製作',
     heroSub: '每一種香氛都有它的故事。探索用真正乾燥花和純精油製作的手工皂、蠟片和蠟燭。',
     shopNow: '立即選購',
     ourStory: '我們的故事',
-    featuredTag: '✨ 為您精選',
+    featuredTag: '為您精選',
     featuredTitle: '精選商品',
     featuredSub: '我們最受喜愛的作品，小批量精心製作。',
-    aboutTag: '🌿 我們的理念',
+    aboutTag: '我們的理念',
     aboutTitle: '手工製作，用心給予',
     aboutText1: '每一塊手工皂、每一片蠟片、每一支蠟燭，都是Mandy用愛與心意手工製作的。我們相信自我呵護應該是美麗、天然且觸手可及的。',
     aboutText2: '只使用最優質的植物、精油和永續原料——因為您的肌膚值得最好的。',
@@ -87,8 +95,8 @@ const i18n = {
     natural: '天然',
     handmade: '手工',
     sustainable: '永續',
-    instaTag: '📸 追蹤我們',
-    instaTitle: '@bubblyhandmadeworkshopmandy',
+    instaTag: '追蹤我們',
+    instaTitle: '@bubbly._studio',
     instaSub: '在Instagram追蹤我們的旅程，獲取幕後花絮、新品發佈和每日靈感。',
     followUs: '追蹤Instagram',
     all: '全部',
@@ -131,6 +139,14 @@ const i18n = {
     checkout: '使用Stripe結帳',
     addedToCart: '已加入購物車！',
     home: '首頁', shop: '選購', workshops: '工作坊', about: '關於', contact: '聯繫',
+    nameRequired: '請輸入您的姓名',
+    emailInvalid: '請輸入有效的電郵地址',
+    messageRequired: '請輸入留言',
+    newsletterSuccess: '歡迎加入Bubbly大家庭！',
+    newsletterExists: '您已經訂閱了！',
+    noResults: '沒有找到商品',
+    noResultsSub: '嘗試不同的搜尋或瀏覽全部商品。',
+    cartEmptyAction: '瀏覽我們的系列',
   }
 };
 
@@ -213,7 +229,7 @@ function renderCart() {
       if (!p) return '';
       return `
         <div class="cart-item">
-          <div class="cart-item-image" style="background:${p.color}">${p.emoji}</div>
+          <div class="cart-item-image" style="background:${p.color}">${p.image ? `<img src="${p.image}" alt="${lang === 'zh' ? p.nameCn : p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;">` : p.emoji}</div>
           <div class="cart-item-details">
             <div class="cart-item-name">${lang === 'zh' ? p.nameCn : p.name}</div>
             <div class="cart-item-price">$${(p.price * item.qty).toFixed(2)}</div>
@@ -260,11 +276,16 @@ function renderProducts(containerId, filterCategory, limit) {
   }
   if (limit) filtered = filtered.slice(0, limit);
 
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><p class="empty-state-title">' + t('noResults') + '</p><p class="empty-state-sub">' + t('noResultsSub') + '</p></div>';
+    return;
+  }
+
   container.innerHTML = filtered.map(p => `
     <div class="product-card fade-in" data-category="${p.category}">
       <div class="product-image" style="background:${p.color}">
         ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-        <span>${p.emoji}</span>
+        ${p.image ? `<img src="${p.image}" alt="${lang === 'zh' ? p.nameCn : p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0;">` : `<span>${p.emoji}</span>`}
       </div>
       <div class="product-info">
         <div class="product-name">${lang === 'zh' ? p.nameCn : p.name}</div>
@@ -294,7 +315,12 @@ function toggleLang() {
 
 // --- Mobile Menu ---
 function toggleMenu() {
-  document.querySelector('.nav-links')?.classList.toggle('open');
+  const nav = document.querySelector('.nav-links');
+  const btn = document.querySelector('.menu-toggle');
+  nav?.classList.toggle('open');
+  const expanded = nav?.classList.contains('open');
+  btn?.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  btn?.setAttribute('aria-label', expanded ? 'Close menu' : 'Open menu');
 }
 
 // --- Scroll Effects ---
@@ -315,21 +341,94 @@ function initScrollEffects() {
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Section reveal on scroll
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        sectionObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.section').forEach(el => sectionObserver.observe(el));
 }
 
 // --- Stripe Checkout (placeholder) ---
 function checkout() {
   if (cart.length === 0) return;
+  const btn = document.querySelector('.cart-checkout-btn');
+  if (btn?.disabled) return;
+  if (btn) { btn.disabled = true; btn.textContent = '...'; }
   // In production, this would redirect to Stripe Checkout
   // For now, show a message
   alert('Stripe Checkout integration ready!\n\nTo activate:\n1. Add your Stripe publishable key in app.js\n2. Create products in your Stripe Dashboard\n3. Map product IDs to Stripe Price IDs\n\nTotal: $' + getCartTotal().toFixed(2));
 }
 
 // --- Contact Form ---
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showFieldError(field, message) {
+  clearFieldError(field);
+  field.classList.add('field-error');
+  const errorEl = document.createElement('span');
+  errorEl.className = 'field-error-msg';
+  errorEl.textContent = message;
+  errorEl.setAttribute('role', 'alert');
+  field.parentNode.appendChild(errorEl);
+}
+
+function clearFieldError(field) {
+  field.classList.remove('field-error');
+  const existing = field.parentNode.querySelector('.field-error-msg');
+  if (existing) existing.remove();
+}
+
 function handleContactSubmit(e) {
   e.preventDefault();
-  showToast(lang === 'zh' ? '訊息已發送！感謝您！' : 'Message sent! Thank you! 💕');
-  e.target.reset();
+  const form = e.target;
+  const name = form.querySelector('input[type="text"]');
+  const email = form.querySelector('input[type="email"]');
+  const message = form.querySelector('textarea');
+  let valid = true;
+
+  // Clear previous errors
+  [name, email, message].forEach(f => { if (f) clearFieldError(f); });
+
+  if (name && !name.value.trim()) {
+    showFieldError(name, t('nameRequired'));
+    valid = false;
+  }
+  if (email && !validateEmail(email.value)) {
+    showFieldError(email, t('emailInvalid'));
+    valid = false;
+  }
+  if (message && !message.value.trim()) {
+    showFieldError(message, t('messageRequired'));
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  // Disable button during submission
+  const submitBtn = form.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = lang === 'zh' ? '發送中...' : 'Sending...';
+  }
+
+  // Simulate sending (replace with real API)
+  setTimeout(() => {
+    showToast(lang === 'zh' ? '訊息已發送！感謝您！' : 'Message sent! Thank you!');
+    form.reset();
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = t('send');
+    }
+  }, 800);
 }
 
 // --- Init ---
@@ -364,6 +463,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Contact form
   const contactForm = document.getElementById('contact-form');
   if (contactForm) contactForm.addEventListener('submit', handleContactSubmit);
+
+  // Newsletter form with validation
+  const newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      if (!emailInput || !validateEmail(emailInput.value)) {
+        showFieldError(emailInput, t('emailInvalid'));
+        return;
+      }
+      clearFieldError(emailInput);
+      const btn = newsletterForm.querySelector('button');
+      if (btn) { btn.disabled = true; btn.textContent = '...'; }
+      setTimeout(() => {
+        showToast(t('newsletterSuccess'));
+        emailInput.value = '';
+        if (btn) { btn.disabled = false; btn.textContent = lang === 'zh' ? '訂閱' : 'Subscribe'; }
+      }, 600);
+    });
+  }
 
   // Apply translations to data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {

@@ -58,7 +58,7 @@ window.openQuickView = function(productId) {
     <div class="modal">
       <div class="modal-image" style="background:${product.color}">
         ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-        <span>${product.emoji}</span>
+        ${product.image ? `<img src="${product.image}" alt="${name}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0;">` : `<span>${product.emoji}</span>`}
         <button class="modal-close" onclick="closeQuickView()">✕</button>
       </div>
       <div class="modal-body">
@@ -127,7 +127,7 @@ window.searchProducts = function(query) {
     <div class="product-card fade-in" data-category="${p.category}" onclick="openQuickView('${p.id}')">
       <div class="product-image" style="background:${p.color}">
         ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
-        <span>${p.emoji}</span>
+        ${p.image ? `<img src="${p.image}" alt="${lang === 'zh' ? p.nameCn : p.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius) var(--radius) 0 0;">` : `<span>${p.emoji}</span>`}
       </div>
       <div class="product-info">
         <div class="product-name">${lang === 'zh' ? p.nameCn : p.name}</div>
@@ -277,3 +277,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const nlForm = document.getElementById('newsletter-form');
   if (nlForm) nlForm.addEventListener('submit', handleNewsletter);
 });
+
+// --- 11. Reduced Motion Preference ---
+(function() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.style.setProperty('--transition', '0.01s');
+    // Disable animations
+    const style = document.createElement('style');
+    style.textContent = `
+      *, *::before, *::after { 
+        animation-duration: 0.01s !important; 
+        transition-duration: 0.01s !important; 
+      }
+      .fade-in { opacity: 1 !important; transform: none !important; }
+    `;
+    document.head.appendChild(style);
+  }
+})();
