@@ -6,7 +6,7 @@
   <title>About — Bubbly Handmade Workshop</title>
   <meta name="description" content="Meet Mandy and learn the story behind Bubbly Handmade Workshop.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/enhancements.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
@@ -24,9 +24,9 @@
         <li><a href="contact.html" data-i18n="contact">Contact</a></li>
         <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
       </ul>
-      <div style="display:flex;align-items:center;gap:16px">
-        <div class="nav-cart" onclick="toggleCart()">🛒<span class="cart-count"></span></div>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <div class="nav-actions">
+        <button class="nav-cart" onclick="toggleCart()" aria-label="Shopping cart">🛒<span class="cart-count"></span></button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </nav>
   </header>
@@ -59,17 +59,17 @@
       </div>
       <div class="values-grid">
         <div class="value-card fade-in">
-          <div class="value-icon">🌿</div>
+          <div class="value-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c-4-4-8-7.5-8-12a8 8 0 0116 0c0 4.5-4 8-8 12z"/><path d="M12 10a2 2 0 100 4 2 2 0 000-4z"/></svg></div>
           <h3 data-i18n="pureTitle">Pure Ingredients</h3>
           <p data-i18n="pureSub">No harsh chemicals, no artificial colors. Just nature's finest botanicals and essential oils.</p>
         </div>
         <div class="value-card fade-in">
-          <div class="value-icon">🤲</div>
+          <div class="value-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 00-2-2a2 2 0 00-2 2"/><path d="M14 10V4a2 2 0 00-2-2a2 2 0 00-2 2v2"/><path d="M10 10.5V6a2 2 0 00-2-2a2 2 0 00-2 2v8"/><path d="M18 8a2 2 0 012 2v7.1a2 2 0 01-.6 1.4l-3.3 3.3a2 2 0 01-1.4.6H12a8 8 0 01-8-8 2 2 0 114 0"/></svg></div>
           <h3 data-i18n="craftTitle">Small Batch Craft</h3>
           <p data-i18n="craftSub">Every item is made by hand in small batches to ensure the highest quality and care.</p>
         </div>
         <div class="value-card fade-in">
-          <div class="value-icon">♻️</div>
+          <div class="value-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 7.5L12 2l4.5 5.5"/><path d="M16.5 7.5L21 16H3l4.5-8.5"/><path d="M12 22l-4.5-6h9L12 22z"/></svg></div>
           <h3 data-i18n="ecoTitle">Eco-Conscious</h3>
           <p data-i18n="ecoSub">Sustainable packaging, recyclable materials, and a commitment to reducing our footprint.</p>
         </div>
@@ -85,15 +85,15 @@
     </div>
   </footer>
 
-  <div class="cart-overlay" onclick="toggleCart()"></div>
-  <div class="cart-drawer">
+  <div class="cart-overlay" onclick="toggleCart()" role="presentation"></div>
+  <aside class="cart-drawer" aria-label="Shopping cart" role="dialog">
     <div class="cart-header"><h3 data-i18n="cartTitle">🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
     <div class="cart-items"></div>
     <div class="cart-footer">
       <div class="cart-total"><span data-i18n="total">Total</span><span class="cart-total-amount">$0.00</span></div>
       <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
     </div>
-  </div>
+  </aside>
 
   <script src="assets/js/app.js"></script>
   <script src="assets/js/enhancements.js"></script>

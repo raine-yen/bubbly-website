@@ -6,7 +6,7 @@
   <title>Workshops — Bubbly Handmade Workshop</title>
   <meta name="description" content="Join our aromatherapy and handmade soap workshops. Book your class today.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/enhancements.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
@@ -24,9 +24,9 @@
         <li><a href="contact.html" data-i18n="contact">Contact</a></li>
         <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
       </ul>
-      <div style="display:flex;align-items:center;gap:16px">
-        <div class="nav-cart" onclick="toggleCart()">🛒<span class="cart-count"></span></div>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <div class="nav-actions">
+        <button class="nav-cart" onclick="toggleCart()" aria-label="Shopping cart">🛒<span class="cart-count"></span></button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </nav>
   </header>
@@ -42,9 +42,34 @@
   <section class="section">
     <div class="container">
       <div class="about-grid">
-        <div class="about-image-placeholder">🎨🫧</div>
+        <div class="about-image-placeholder"><img src="https://images.unsplash.com/photo-1661450159298-d58a3b98f3a4?auto=format&fit=crop&w=600&q=80" alt="Bubbly Workshop - hands making artisan soaps" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);"></div>
         <div class="about-text">
           <h2 data-i18n="bookClass">Book a Class</h2>
+          <div class="workshop-details" style="margin-bottom:32px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;">
+              <div style="background:var(--pink-light);padding:20px;border-radius:var(--radius-sm);text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:8px;">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <strong style="font-family:var(--font-accent);">2 Hours</strong>
+                <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">Full guided experience</p>
+              </div>
+              <div style="background:var(--sage-light);padding:20px;border-radius:var(--radius-sm);text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:8px;">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                </div>
+                <strong style="font-family:var(--font-accent);">Take Home</strong>
+                <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">3 handmade soaps or candles</p>
+              </div>
+              <div style="background:var(--gold-light);padding:20px;border-radius:var(--radius-sm);text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:8px;">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </div>
+                <strong style="font-family:var(--font-accent);">$65 / person</strong>
+                <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">All materials included</p>
+              </div>
+            </div>
+          </div>
           <p>We use Calendly to make booking simple and easy. Choose a time that works for you, and we'll see you at the workshop!</p>
           <div style="margin-top: 32px;">
             <!-- Calendly Inline Widget -->
@@ -64,15 +89,15 @@
     </div>
   </footer>
 
-  <div class="cart-overlay" onclick="toggleCart()"></div>
-  <div class="cart-drawer">
+  <div class="cart-overlay" onclick="toggleCart()" role="presentation"></div>
+  <aside class="cart-drawer" aria-label="Shopping cart" role="dialog">
     <div class="cart-header"><h3 data-i18n="cartTitle">🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
     <div class="cart-items"></div>
     <div class="cart-footer">
       <div class="cart-total"><span data-i18n="total">Total</span><span class="cart-total-amount">$0.00</span></div>
       <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
     </div>
-  </div>
+  </aside>
 
   <script src="assets/js/app.js"></script>
   <script src="assets/js/enhancements.js"></script>

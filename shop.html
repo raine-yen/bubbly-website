@@ -6,7 +6,7 @@
   <title>Shop — Bubbly Handmade Workshop</title>
   <meta name="description" content="Browse our collection of handcrafted soaps, wax melts, candles, and gift sets.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/enhancements.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
@@ -24,9 +24,9 @@
         <li><a href="contact.html" data-i18n="contact">Contact</a></li>
         <li><button class="lang-toggle" onclick="toggleLang()">中文</button></li>
       </ul>
-      <div style="display:flex;align-items:center;gap:16px">
-        <div class="nav-cart" onclick="toggleCart()">🛒<span class="cart-count"></span></div>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <div class="nav-actions">
+        <button class="nav-cart" onclick="toggleCart()" aria-label="Shopping cart">🛒<span class="cart-count"></span></button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </nav>
   </header>
@@ -64,8 +64,8 @@
     </div>
   </footer>
 
-  <div class="cart-overlay" onclick="toggleCart()"></div>
-  <div class="cart-drawer">
+  <div class="cart-overlay" onclick="toggleCart()" role="presentation"></div>
+  <aside class="cart-drawer" aria-label="Shopping cart" role="dialog">
     <div class="cart-header">
       <h3 data-i18n="cartTitle">🛒 Your Cart</h3>
       <button class="cart-close" onclick="toggleCart()">✕</button>
@@ -78,7 +78,7 @@
       </div>
       <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
     </div>
-  </div>
+  </aside>
 
   <script src="assets/js/app.js"></script>
   <script src="assets/js/enhancements.js"></script>
