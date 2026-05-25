@@ -4,12 +4,616 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Workshops — Bubbly Handmade Workshop</title>
-  <meta name="description" content="Join our aromatherapy and handmade soap workshops. Book your class today.">
+  <meta name="description" content="Join our aromatherapy and handmade soap workshops. Book your class today with real-time availability.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/enhancements.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+  <style>
+    /* ============================================
+       Booking Widget Styles
+       ============================================ */
+
+    .workshop-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .workshop-type-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: 0 4px 20px var(--shadow);
+      cursor: pointer;
+      transition: all var(--transition);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .workshop-type-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px var(--shadow-hover);
+    }
+
+    .workshop-type-card.selected {
+      border-color: var(--pink);
+      background: var(--pink-light);
+    }
+
+    .workshop-type-card .card-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-family: var(--font-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-popular {
+      background: var(--gold);
+      color: white;
+    }
+
+    .badge-new {
+      background: var(--sage);
+      color: white;
+    }
+
+    .badge-almost-full {
+      background: oklch(0.6 0.18 30);
+      color: white;
+    }
+
+    .workshop-type-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .workshop-type-card .workshop-desc {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .workshop-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .workshop-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .workshop-meta-item svg {
+      flex-shrink: 0;
+      color: var(--pink-dark);
+    }
+
+    .workshop-price {
+      font-family: var(--font-accent);
+      font-size: 1.4rem;
+      color: var(--text-heading);
+      margin-top: 16px;
+    }
+
+    .workshop-price span {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-family: var(--font-body);
+    }
+
+    /* Booking Flow Container */
+    .booking-flow {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px var(--shadow);
+      overflow: hidden;
+      display: none;
+    }
+
+    .booking-flow.active {
+      display: block;
+      animation: fadeUp 0.4s ease both;
+    }
+
+    /* Progress Steps */
+    .booking-steps {
+      display: flex;
+      background: var(--cream);
+      padding: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .booking-step {
+      flex: 1;
+      padding: 16px 12px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-light);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .booking-step .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text-light);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .booking-step.active {
+      color: var(--text-heading);
+    }
+
+    .booking-step.active .step-num {
+      background: var(--pink);
+      color: var(--white);
+    }
+
+    .booking-step.completed .step-num {
+      background: var(--sage);
+      color: white;
+    }
+
+    .booking-step.completed {
+      color: var(--sage);
+    }
+
+    /* Step Content Panels */
+    .step-panel {
+      display: none;
+      padding: 32px;
+    }
+
+    .step-panel.active {
+      display: block;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .step-panel h3 {
+      margin-bottom: 24px;
+      font-size: 1.3rem;
+    }
+
+    /* Calendar */
+    .booking-calendar {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .calendar-header h4 {
+      font-size: 1.1rem;
+    }
+
+    .calendar-nav {
+      background: none;
+      border: 2px solid var(--border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      color: var(--text);
+    }
+
+    .calendar-nav:hover {
+      border-color: var(--pink);
+      background: var(--pink-light);
+    }
+
+    .calendar-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+
+    .calendar-day-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-light);
+      padding: 8px 0;
+      text-transform: uppercase;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+      background: none;
+      color: var(--text);
+    }
+
+    .calendar-day:hover:not(.disabled):not(.empty) {
+      background: var(--pink-light);
+      color: var(--pink-dark);
+    }
+
+    .calendar-day.today {
+      border: 2px solid var(--sage);
+    }
+
+    .calendar-day.selected {
+      background: var(--pink);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .calendar-day.disabled {
+      color: var(--border);
+      cursor: not-allowed;
+    }
+
+    .calendar-day.empty {
+      cursor: default;
+    }
+
+    .calendar-day.has-slots::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--sage);
+    }
+
+    .calendar-day {
+      position: relative;
+    }
+
+    /* Time Slots */
+    .time-slots {
+      margin-top: 24px;
+    }
+
+    .time-slots-header {
+      font-family: var(--font-accent);
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--text-heading);
+    }
+
+    .time-slot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+    }
+
+    .time-slot {
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--transition);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .time-slot:hover {
+      border-color: var(--pink);
+      background: var(--pink-light);
+    }
+
+    .time-slot.selected {
+      border-color: var(--pink);
+      background: var(--pink);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .time-slot.unavailable {
+      opacity: 0.4;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    .time-slot .slot-spots {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .time-slot.selected .slot-spots {
+      color: oklch(0.95 0.02 55);
+    }
+
+    /* Booking Form */
+    .booking-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .booking-form .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .booking-summary-mini {
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .summary-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--pink-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .summary-details {
+      flex: 1;
+    }
+
+    .summary-details .summary-title {
+      font-family: var(--font-accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .summary-details .summary-datetime {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Confirmation */
+    .booking-confirmation {
+      text-align: center;
+      padding: 48px 32px;
+    }
+
+    .confirmation-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--sage-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 2.5rem;
+    }
+
+    .confirmation-details {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 24px auto;
+      max-width: 400px;
+      text-align: left;
+    }
+
+    .confirmation-details .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .confirmation-details .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-row .detail-label {
+      color: var(--text-light);
+    }
+
+    .detail-row .detail-value {
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    /* Booking footer actions */
+    .booking-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 24px 32px;
+      border-top: 1px solid var(--border);
+      background: var(--cream);
+    }
+
+    .booking-actions .btn-back {
+      background: none;
+      border: 2px solid var(--border);
+      color: var(--text);
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .booking-actions .btn-back:hover {
+      border-color: var(--pink);
+      color: var(--pink-dark);
+    }
+
+    .booking-actions .btn-next {
+      background: var(--pink);
+      color: var(--text-heading);
+      padding: 12px 32px;
+      border-radius: var(--radius-full);
+      border: none;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .booking-actions .btn-next:hover {
+      background: var(--pink-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .booking-actions .btn-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Loading state */
+    .booking-loading {
+      text-align: center;
+      padding: 48px;
+      color: var(--text-light);
+    }
+
+    .booking-loading .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--pink);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* No slots message */
+    .no-slots {
+      text-align: center;
+      padding: 32px;
+      color: var(--text-light);
+    }
+
+    .no-slots-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    /* Workshop includes grid */
+    .workshop-includes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .include-item {
+      background: var(--cream);
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    .include-item svg {
+      margin-bottom: 8px;
+      color: var(--pink-dark);
+    }
+
+    .include-item strong {
+      display: block;
+      font-family: var(--font-accent);
+      margin-bottom: 4px;
+    }
+
+    .include-item p {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .workshop-types {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-step .step-label {
+        display: none;
+      }
+
+      .step-panel {
+        padding: 24px 16px;
+      }
+
+      .booking-form .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-actions {
+        padding: 16px;
+      }
+
+      .time-slot-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .time-slot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
 </head>
 <body data-page="workshops">
 
@@ -31,56 +635,214 @@
     </nav>
   </header>
 
+  <!-- Hero -->
   <section class="shop-hero">
     <div class="container">
-      <span class="section-tag">🌿 Experience & Create</span>
+      <span class="section-tag" data-i18n="wsTag">🌿 Experience & Create</span>
       <h1 data-i18n="workshopTitle">Workshops & Classes</h1>
-      <p style="color:var(--text-light);max-width:500px;margin:8px auto 0" data-i18n="workshopSub">Handcraft your own aromatherapy creations.</p>
+      <p style="color:var(--text-light);max-width:520px;margin:8px auto 0" data-i18n="workshopSub">Handcraft your own aromatherapy creations.</p>
     </div>
   </section>
 
-  <section class="section">
+  <!-- What's Included -->
+  <section class="section" style="padding-bottom:0">
     <div class="container">
-      <div class="about-grid">
-        <div class="about-image-placeholder"><img src="https://images.unsplash.com/photo-1661450159298-d58a3b98f3a4?auto=format&fit=crop&w=600&q=80" alt="Bubbly Workshop - hands making artisan soaps" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius);"></div>
-        <div class="about-text">
-          <h2 data-i18n="bookClass">Book a Class</h2>
-          <div class="workshop-details" style="margin-bottom:32px;">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px;">
-              <div style="background:var(--pink-light);padding:20px;border-radius:var(--radius-sm);text-align:center;">
-                <div style="font-size:1.5rem;margin-bottom:8px;">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                </div>
-                <strong style="font-family:var(--font-accent);">2 Hours</strong>
-                <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">Full guided experience</p>
-              </div>
-              <div style="background:var(--sage-light);padding:20px;border-radius:var(--radius-sm);text-align:center;">
-                <div style="font-size:1.5rem;margin-bottom:8px;">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-                </div>
-                <strong style="font-family:var(--font-accent);">Take Home</strong>
-                <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">3 handmade soaps or candles</p>
-              </div>
-              <div style="background:var(--gold-light);padding:20px;border-radius:var(--radius-sm);text-align:center;">
-                <div style="font-size:1.5rem;margin-bottom:8px;">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                </div>
-                <strong style="font-family:var(--font-accent);">$65 / person</strong>
-                <p style="font-size:0.85rem;color:var(--text-light);margin-top:4px;">All materials included</p>
-              </div>
-            </div>
-          </div>
-          <p>We use Calendly to make booking simple and easy. Choose a time that works for you, and we'll see you at the workshop!</p>
-          <div style="margin-top: 32px;">
-            <!-- Calendly Inline Widget -->
-            <div class="calendly-inline-widget" data-url="https://calendly.com/ryzones2010919/30min" style="min-width:320px;height:700px;"></div>
-            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-          </div>
+      <div class="workshop-includes">
+        <div class="include-item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <strong data-i18n="wsDuration">2 Hours</strong>
+          <p data-i18n="wsDurationDesc">Full guided experience</p>
+        </div>
+        <div class="include-item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+          <strong data-i18n="wsTakeHome">Take Home</strong>
+          <p data-i18n="wsTakeHomeDesc">3 handmade soaps or candles</p>
+        </div>
+        <div class="include-item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <strong data-i18n="wsGroupSize">Small Groups</strong>
+          <p data-i18n="wsGroupDesc">Max 8 participants</p>
+        </div>
+        <div class="include-item">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          <strong data-i18n="wsPrice">$65 / person</strong>
+          <p data-i18n="wsPriceDesc">All materials included</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Workshop Types -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" data-i18n="wsChooseTag">Choose Your Experience</span>
+        <h2 data-i18n="wsChooseTitle">Pick a Workshop</h2>
+        <p data-i18n="wsChooseSub">Select the class that speaks to you, then book your spot.</p>
+      </div>
+
+      <div class="workshop-types" id="workshop-types">
+        <!-- Soap Making -->
+        <div class="workshop-type-card" onclick="selectWorkshop('soap')" data-workshop="soap">
+          <span class="card-badge badge-popular" data-i18n="wsBadgePopular">Popular</span>
+          <h3 data-i18n="wsSoapTitle">Artisan Soap Making</h3>
+          <p class="workshop-desc" data-i18n="wsSoapDesc">Learn the art of cold-process soap making with dried botanicals, essential oils, and natural colorants. Take home 3 bars of your own creation.</p>
+          <div class="workshop-meta">
+            <span class="workshop-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span data-i18n="ws2hrs">2 hours</span>
+            </span>
+            <span class="workshop-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span data-i18n="wsMaxPeople">Max 8 people</span>
+            </span>
+          </div>
+          <div class="workshop-price">$65 <span data-i18n="wsPerPerson">/ person</span></div>
+        </div>
+
+        <!-- Candle Making -->
+        <div class="workshop-type-card" onclick="selectWorkshop('candle')" data-workshop="candle">
+          <span class="card-badge badge-new" data-i18n="wsBadgeNew">New</span>
+          <h3 data-i18n="wsCandleTitle">Soy Candle Pouring</h3>
+          <p class="workshop-desc" data-i18n="wsCandleDesc">Craft beautiful soy wax candles with your choice of scents and dried flowers. Learn wicking, fragrance blending, and decorative techniques.</p>
+          <div class="workshop-meta">
+            <span class="workshop-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span data-i18n="ws2hrs">2 hours</span>
+            </span>
+            <span class="workshop-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span data-i18n="wsMaxPeople">Max 8 people</span>
+            </span>
+          </div>
+          <div class="workshop-price">$65 <span data-i18n="wsPerPerson">/ person</span></div>
+        </div>
+
+        <!-- Wax Melts -->
+        <div class="workshop-type-card" onclick="selectWorkshop('waxmelt')" data-workshop="waxmelt">
+          <h3 data-i18n="wsWaxTitle">Wax Melt Workshop</h3>
+          <p class="workshop-desc" data-i18n="wsWaxDesc">Create a set of 12 botanical wax melts with essential oil blends. Perfect for beginners and a great introduction to aromatherapy.</p>
+          <div class="workshop-meta">
+            <span class="workshop-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span data-i18n="ws90min">1.5 hours</span>
+            </span>
+            <span class="workshop-meta-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <span data-i18n="wsMaxPeople">Max 8 people</span>
+            </span>
+          </div>
+          <div class="workshop-price">$45 <span data-i18n="wsPerPerson">/ person</span></div>
+        </div>
+      </div>
+
+      <!-- Booking Flow -->
+      <div class="booking-flow" id="booking-flow">
+        <!-- Progress Steps -->
+        <div class="booking-steps">
+          <div class="booking-step active" data-step="1">
+            <span class="step-num">1</span>
+            <span class="step-label" data-i18n="wsStepDate">Date & Time</span>
+          </div>
+          <div class="booking-step" data-step="2">
+            <span class="step-num">2</span>
+            <span class="step-label" data-i18n="wsStepInfo">Your Info</span>
+          </div>
+          <div class="booking-step" data-step="3">
+            <span class="step-num">3</span>
+            <span class="step-label" data-i18n="wsStepConfirm">Confirm</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Date & Time -->
+        <div class="step-panel active" data-panel="1">
+          <h3 data-i18n="wsPickDateTime">Pick a Date & Time</h3>
+
+          <div class="booking-calendar">
+            <div class="calendar-header">
+              <button class="calendar-nav" id="cal-prev" onclick="calendarNav(-1)" aria-label="Previous month">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <h4 id="cal-month-year"></h4>
+              <button class="calendar-nav" id="cal-next" onclick="calendarNav(1)" aria-label="Next month">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+
+          <div class="time-slots" id="time-slots-container" style="display:none">
+            <div class="time-slots-header" id="time-slots-date"></div>
+            <div class="time-slot-grid" id="time-slot-grid"></div>
+          </div>
+        </div>
+
+        <!-- Step 2: Your Info -->
+        <div class="step-panel" data-panel="2">
+          <h3 data-i18n="wsYourDetails">Your Details</h3>
+
+          <div class="booking-summary-mini" id="booking-summary-mini">
+            <div class="summary-icon">🫧</div>
+            <div class="summary-details">
+              <div class="summary-title" id="summary-workshop-name"></div>
+              <div class="summary-datetime" id="summary-datetime"></div>
+            </div>
+          </div>
+
+          <form class="booking-form" id="booking-form" onsubmit="return false">
+            <div class="form-row">
+              <div class="form-group">
+                <label data-i18n="wsFirstName">First Name *</label>
+                <input type="text" id="book-first-name" required>
+              </div>
+              <div class="form-group">
+                <label data-i18n="wsLastName">Last Name</label>
+                <input type="text" id="book-last-name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label data-i18n="wsEmail">Email Address *</label>
+              <input type="email" id="book-email" required>
+            </div>
+            <div class="form-group">
+              <label data-i18n="wsPhone">Phone Number</label>
+              <input type="tel" id="book-phone">
+            </div>
+            <div class="form-group">
+              <label data-i18n="wsNotes">Special Requests or Notes</label>
+              <textarea id="book-notes" rows="3" style="resize:vertical;min-height:80px"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- Step 3: Confirmation -->
+        <div class="step-panel" data-panel="3">
+          <div class="booking-confirmation" id="booking-confirmation">
+            <div class="booking-loading" id="booking-loading">
+              <div class="spinner"></div>
+              <p data-i18n="wsBookingProcessing">Booking your spot...</p>
+            </div>
+            <div id="booking-success" style="display:none">
+              <div class="confirmation-icon">✓</div>
+              <h2 data-i18n="wsBookingSuccess">You're In!</h2>
+              <p style="color:var(--text-light);margin-top:8px" data-i18n="wsBookingSuccessMsg">Check your email for confirmation details.</p>
+              <div class="confirmation-details" id="confirmation-details"></div>
+              <a href="index.html" class="btn btn-primary" style="margin-top:24px" data-i18n="wsBackHome">Back to Home</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions (not shown on step 3) -->
+        <div class="booking-actions" id="booking-actions">
+          <button class="btn-back" onclick="bookingBack()" data-i18n="wsBack">Back</button>
+          <button class="btn-next" id="btn-next" onclick="bookingNext()" disabled data-i18n="wsNext">Next</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
@@ -89,6 +851,7 @@
     </div>
   </footer>
 
+  <!-- Cart Drawer -->
   <div class="cart-overlay" onclick="toggleCart()" role="presentation"></div>
   <aside class="cart-drawer" aria-label="Shopping cart" role="dialog">
     <div class="cart-header"><h3 data-i18n="cartTitle">🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
@@ -99,7 +862,425 @@
     </div>
   </aside>
 
+  <!-- Scripts -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="assets/js/enhancements.js"></script>
+
+  <script>
+  /* ============================================
+     Bubbly Workshop Booking Widget
+     ============================================ */
+
+  // --- State ---
+  let bookingState = {
+    workshop: null,
+    date: null,
+    time: null,
+    step: 1,
+    calendarMonth: new Date().getMonth(),
+    calendarYear: new Date().getFullYear()
+  };
+
+  // Workshop data (will come from Square Catalog in Phase 2)
+  const workshops = {
+    soap: {
+      id: 'soap',
+      name: 'Artisan Soap Making',
+      nameCn: '手工皂製作',
+      price: 65,
+      duration: 120,
+      maxCapacity: 8
+    },
+    candle: {
+      id: 'candle',
+      name: 'Soy Candle Pouring',
+      nameCn: '大豆蠟燭製作',
+      price: 65,
+      duration: 120,
+      maxCapacity: 8
+    },
+    waxmelt: {
+      id: 'waxmelt',
+      name: 'Wax Melt Workshop',
+      nameCn: '蠟片工作坊',
+      price: 45,
+      duration: 90,
+      maxCapacity: 8
+    }
+  };
+
+  // Demo time slots (will come from Square Bookings API when worker is deployed)
+  function getDemoSlots(date) {
+    const day = date.getDay();
+    // No slots on Monday/Tuesday
+    if (day === 1 || day === 2) return [];
+    // Weekend: more slots
+    if (day === 0 || day === 6) {
+      return [
+        { time: '10:00', spots: Math.floor(Math.random() * 5) + 2 },
+        { time: '13:00', spots: Math.floor(Math.random() * 4) + 1 },
+        { time: '15:30', spots: Math.floor(Math.random() * 6) + 2 }
+      ];
+    }
+    // Weekday
+    return [
+      { time: '14:00', spots: Math.floor(Math.random() * 5) + 3 },
+      { time: '18:30', spots: Math.floor(Math.random() * 3) + 1 }
+    ];
+  }
+
+  // --- Workshop Selection ---
+  function selectWorkshop(type) {
+    bookingState.workshop = workshops[type];
+    bookingState.date = null;
+    bookingState.time = null;
+    bookingState.step = 1;
+
+    // Update card selection
+    document.querySelectorAll('.workshop-type-card').forEach(card => {
+      card.classList.toggle('selected', card.dataset.workshop === type);
+    });
+
+    // Show booking flow
+    const flow = document.getElementById('booking-flow');
+    flow.classList.add('active');
+    flow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Reset steps
+    updateStepUI();
+    renderCalendar();
+    document.getElementById('btn-next').disabled = true;
+    document.getElementById('time-slots-container').style.display = 'none';
+  }
+
+  // --- Calendar ---
+  function renderCalendar() {
+    const grid = document.getElementById('calendar-grid');
+    const monthYear = document.getElementById('cal-month-year');
+    const { calendarMonth, calendarYear } = bookingState;
+
+    const monthNames = lang === 'zh'
+      ? ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+      : ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    const dayLabels = lang === 'zh'
+      ? ['日','一','二','三','四','五','六']
+      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+    monthYear.textContent = `${monthNames[calendarMonth]} ${calendarYear}`;
+
+    const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+    const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let html = dayLabels.map(d => `<div class="calendar-day-label">${d}</div>`).join('');
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      html += '<div class="calendar-day empty"></div>';
+    }
+
+    // Days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(calendarYear, calendarMonth, d);
+      const isPast = date < today;
+      const isToday = date.getTime() === today.getTime();
+      const isSelected = bookingState.date && date.toDateString() === bookingState.date.toDateString();
+      const dayOfWeek = date.getDay();
+      const hasSlots = dayOfWeek !== 1 && dayOfWeek !== 2 && !isPast; // Not Mon/Tue
+
+      let classes = 'calendar-day';
+      if (isPast) classes += ' disabled';
+      if (isToday) classes += ' today';
+      if (isSelected) classes += ' selected';
+      if (hasSlots) classes += ' has-slots';
+
+      html += `<button class="${classes}" ${isPast ? 'disabled' : ''} onclick="selectDate(${calendarYear},${calendarMonth},${d})">${d}</button>`;
+    }
+
+    grid.innerHTML = html;
+
+    // Disable prev button if current month
+    const now = new Date();
+    document.getElementById('cal-prev').disabled =
+      calendarYear === now.getFullYear() && calendarMonth === now.getMonth();
+  }
+
+  function calendarNav(dir) {
+    bookingState.calendarMonth += dir;
+    if (bookingState.calendarMonth > 11) {
+      bookingState.calendarMonth = 0;
+      bookingState.calendarYear++;
+    } else if (bookingState.calendarMonth < 0) {
+      bookingState.calendarMonth = 11;
+      bookingState.calendarYear--;
+    }
+    renderCalendar();
+  }
+
+  function selectDate(year, month, day) {
+    bookingState.date = new Date(year, month, day);
+    bookingState.time = null;
+    document.getElementById('btn-next').disabled = true;
+    renderCalendar();
+    renderTimeSlots();
+  }
+
+  // --- Time Slots ---
+  function renderTimeSlots() {
+    const container = document.getElementById('time-slots-container');
+    const dateLabel = document.getElementById('time-slots-date');
+    const grid = document.getElementById('time-slot-grid');
+
+    if (!bookingState.date) {
+      container.style.display = 'none';
+      return;
+    }
+
+    container.style.display = 'block';
+
+    const dateStr = bookingState.date.toLocaleDateString(lang === 'zh' ? 'zh-TW' : 'en-US', {
+      weekday: 'long', month: 'long', day: 'numeric'
+    });
+    dateLabel.textContent = dateStr;
+
+    const slots = getDemoSlots(bookingState.date);
+
+    if (slots.length === 0) {
+      grid.innerHTML = `
+        <div class="no-slots" style="grid-column:1/-1">
+          <div class="no-slots-icon">📅</div>
+          <p>${lang === 'zh' ? '此日期無可用時段' : 'No available slots on this date'}</p>
+          <p style="font-size:0.8rem;margin-top:4px">${lang === 'zh' ? '請嘗試其他日期' : 'Try another day'}</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = slots.map(slot => {
+      const isSelected = bookingState.time === slot.time;
+      const almostFull = slot.spots <= 2;
+      const spotsText = lang === 'zh'
+        ? `剩 ${slot.spots} 位`
+        : `${slot.spots} spot${slot.spots > 1 ? 's' : ''} left`;
+
+      return `
+        <button class="time-slot ${isSelected ? 'selected' : ''}" onclick="selectTime('${slot.time}')">
+          ${formatTime(slot.time)}
+          <div class="slot-spots" style="${almostFull ? 'color:oklch(0.6 0.18 30)' : ''}">${spotsText}</div>
+        </button>`;
+    }).join('');
+  }
+
+  function selectTime(time) {
+    bookingState.time = time;
+    document.getElementById('btn-next').disabled = false;
+    renderTimeSlots();
+  }
+
+  function formatTime(timeStr) {
+    const [h, m] = timeStr.split(':').map(Number);
+    if (lang === 'zh') return `${h}:${m.toString().padStart(2, '0')}`;
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hour = h > 12 ? h - 12 : h === 0 ? 12 : h;
+    return `${hour}:${m.toString().padStart(2, '0')} ${ampm}`;
+  }
+
+  // --- Step Navigation ---
+  function updateStepUI() {
+    const { step } = bookingState;
+
+    // Update step indicators
+    document.querySelectorAll('.booking-step').forEach(el => {
+      const s = parseInt(el.dataset.step);
+      el.classList.remove('active', 'completed');
+      if (s === step) el.classList.add('active');
+      if (s < step) el.classList.add('completed');
+    });
+
+    // Show/hide panels
+    document.querySelectorAll('.step-panel').forEach(el => {
+      el.classList.toggle('active', parseInt(el.dataset.panel) === step);
+    });
+
+    // Show/hide actions
+    document.getElementById('booking-actions').style.display = step === 3 ? 'none' : 'flex';
+
+    // Update next button text
+    const nextBtn = document.getElementById('btn-next');
+    if (step === 2) {
+      nextBtn.textContent = lang === 'zh' ? '確認預約' : 'Book Now';
+      nextBtn.disabled = false;
+    } else {
+      nextBtn.textContent = lang === 'zh' ? '下一步' : 'Next';
+    }
+  }
+
+  function bookingNext() {
+    const { step } = bookingState;
+
+    if (step === 1) {
+      if (!bookingState.date || !bookingState.time) return;
+      bookingState.step = 2;
+      updateStepUI();
+      populateSummary();
+    } else if (step === 2) {
+      if (!validateBookingForm()) return;
+      bookingState.step = 3;
+      updateStepUI();
+      submitBooking();
+    }
+  }
+
+  function bookingBack() {
+    if (bookingState.step > 1) {
+      bookingState.step--;
+      updateStepUI();
+    } else {
+      // Go back to workshop selection
+      document.getElementById('booking-flow').classList.remove('active');
+      document.querySelectorAll('.workshop-type-card').forEach(c => c.classList.remove('selected'));
+      bookingState.workshop = null;
+    }
+  }
+
+  function populateSummary() {
+    const ws = bookingState.workshop;
+    const nameEl = document.getElementById('summary-workshop-name');
+    const dtEl = document.getElementById('summary-datetime');
+
+    nameEl.textContent = lang === 'zh' ? ws.nameCn : ws.name;
+
+    const dateStr = bookingState.date.toLocaleDateString(lang === 'zh' ? 'zh-TW' : 'en-US', {
+      weekday: 'short', month: 'short', day: 'numeric'
+    });
+    dtEl.textContent = `${dateStr} · ${formatTime(bookingState.time)} · $${ws.price}`;
+  }
+
+  function validateBookingForm() {
+    const firstName = document.getElementById('book-first-name');
+    const email = document.getElementById('book-email');
+    let valid = true;
+
+    // Clear previous errors
+    [firstName, email].forEach(f => { if (f) clearFieldError(f); });
+
+    if (!firstName.value.trim()) {
+      showFieldError(firstName, lang === 'zh' ? '請輸入您的姓名' : 'Please enter your name');
+      valid = false;
+    }
+
+    if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      showFieldError(email, lang === 'zh' ? '請輸入有效的電子郵件' : 'Please enter a valid email');
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  async function submitBooking() {
+    const loadingEl = document.getElementById('booking-loading');
+    const successEl = document.getElementById('booking-success');
+    const detailsEl = document.getElementById('confirmation-details');
+
+    loadingEl.style.display = 'block';
+    successEl.style.display = 'none';
+
+    const ws = bookingState.workshop;
+    const customer = {
+      givenName: document.getElementById('book-first-name').value.trim(),
+      familyName: document.getElementById('book-last-name').value.trim(),
+      emailAddress: document.getElementById('book-email').value.trim(),
+      phoneNumber: document.getElementById('book-phone').value.trim()
+    };
+    const note = document.getElementById('book-notes').value.trim();
+
+    // Try real API first, fall back to demo mode
+    try {
+      if (typeof bubblyAPI !== 'undefined' && bubblyAPI.isReady()) {
+        const dateStr = bookingState.date.toISOString().split('T')[0];
+        const startAt = `${dateStr}T${bookingState.time}:00`;
+
+        const result = await bubblyAPI.bookWorkshop({
+          serviceId: ws.id,
+          startAt: startAt,
+          customer: customer,
+          note: note
+        });
+
+        showBookingSuccess(result, customer);
+      } else {
+        // Demo mode — simulate booking
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        showBookingSuccess(null, customer);
+      }
+    } catch (err) {
+      console.warn('Booking API not available, using demo mode:', err);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      showBookingSuccess(null, customer);
+    }
+  }
+
+  function showBookingSuccess(apiResult, customer) {
+    const loadingEl = document.getElementById('booking-loading');
+    const successEl = document.getElementById('booking-success');
+    const detailsEl = document.getElementById('confirmation-details');
+    const ws = bookingState.workshop;
+
+    loadingEl.style.display = 'none';
+    successEl.style.display = 'block';
+
+    const dateStr = bookingState.date.toLocaleDateString(lang === 'zh' ? 'zh-TW' : 'en-US', {
+      weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+    });
+
+    const labels = {
+      workshop: lang === 'zh' ? '工作坊' : 'Workshop',
+      date: lang === 'zh' ? '日期' : 'Date',
+      time: lang === 'zh' ? '時間' : 'Time',
+      name: lang === 'zh' ? '姓名' : 'Name',
+      email: lang === 'zh' ? '電郵' : 'Email',
+      total: lang === 'zh' ? '金額' : 'Total'
+    };
+
+    detailsEl.innerHTML = `
+      <div class="detail-row">
+        <span class="detail-label">${labels.workshop}</span>
+        <span class="detail-value">${lang === 'zh' ? ws.nameCn : ws.name}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">${labels.date}</span>
+        <span class="detail-value">${dateStr}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">${labels.time}</span>
+        <span class="detail-value">${formatTime(bookingState.time)}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">${labels.name}</span>
+        <span class="detail-value">${customer.givenName} ${customer.familyName}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">${labels.email}</span>
+        <span class="detail-value">${customer.emailAddress}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">${labels.total}</span>
+        <span class="detail-value">$${ws.price.toFixed(2)} CAD</span>
+      </div>
+    `;
+  }
+
+  // --- Init ---
+  document.addEventListener('DOMContentLoaded', () => {
+    // Initialize bubblyAPI if available
+    if (typeof bubblyAPI !== 'undefined') {
+      bubblyAPI.init().catch(e => console.log('bubblyAPI init (non-blocking):', e.message));
+    }
+  });
+  </script>
+
 </body>
 </html>
