@@ -457,7 +457,7 @@ function filterProducts(category) {
     const onclickMatch = (b.getAttribute('onclick') || '').includes("'" + currentFilter + "'");
     b.classList.toggle('active', btnCat === currentFilter || onclickMatch);
   });
-  renderProducts('shop-products', currentFilter);
+  renderProducts('product-grid', currentFilter);
 }
 
 // --- Language Toggle ---
@@ -603,13 +603,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (page === 'shop') {
-    renderProducts('shop-products', 'all');
+    renderProducts('product-grid', 'all');
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentFilter = btn.dataset.filter;
-        renderProducts('shop-products', currentFilter);
+        renderProducts('product-grid', currentFilter);
       });
     });
   }
