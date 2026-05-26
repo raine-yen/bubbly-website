@@ -4,12 +4,323 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop — Bubbly Handmade Workshop</title>
-  <meta name="description" content="Browse our collection of handcrafted soaps, wax melts, candles, and gift sets.">
+  <meta name="description" content="Shop artisanal handmade soaps, wax melts, candles, and gift sets. All-natural ingredients, handcrafted with love.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/enhancements.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫧</text></svg>">
+  <style>
+    /* ============================================
+       Checkout Modal Styles
+       ============================================ */
+
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .checkout-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      background: var(--cream);
+      border-radius: 16px;
+      width: min(520px, 92vw);
+      max-height: 88vh;
+      overflow-y: auto;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+    }
+
+    #checkout-modal.open .checkout-overlay,
+    #checkout-modal.open .checkout-modal {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #checkout-modal.open .checkout-modal {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .checkout-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid oklch(0.85 0.02 55);
+    }
+
+    .checkout-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--terracotta);
+      margin: 0;
+    }
+
+    .checkout-close {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--text-light);
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .checkout-close:hover {
+      background: oklch(0.9 0.02 55);
+    }
+
+    .checkout-body {
+      padding: 24px 28px;
+    }
+
+    /* Order Summary */
+    .checkout-order-summary {
+      margin-bottom: 24px;
+    }
+
+    .checkout-order-summary h4 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+
+    .checkout-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .checkout-item-qty {
+      color: var(--text-light);
+      margin-left: 4px;
+    }
+
+    .checkout-item-price {
+      font-weight: 600;
+      color: var(--terracotta);
+    }
+
+    .checkout-divider {
+      height: 1px;
+      background: oklch(0.85 0.02 55);
+      margin: 12px 0;
+    }
+
+    .checkout-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .checkout-total-amount {
+      color: var(--terracotta);
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+    }
+
+    /* Customer Info */
+    .checkout-field {
+      margin-bottom: 16px;
+    }
+
+    .checkout-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .checkout-field input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid oklch(0.82 0.03 55);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      background: var(--white);
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .checkout-field input:focus {
+      outline: none;
+      border-color: var(--terracotta);
+    }
+
+    /* Square Card Container */
+    #sq-card-container {
+      min-height: 90px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    #sq-card-container.demo-mode .demo-card-form {
+      background: var(--white);
+      border: 1.5px dashed oklch(0.82 0.03 55);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: oklch(0.85 0.08 85);
+      color: oklch(0.45 0.08 85);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .demo-field {
+      margin-bottom: 10px;
+    }
+
+    .demo-field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-light);
+    }
+
+    .demo-field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid oklch(0.88 0.02 55);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      background: oklch(0.97 0.005 55);
+      color: var(--text-light);
+      box-sizing: border-box;
+    }
+
+    .demo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Pay Button */
+    .checkout-pay-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--font-body);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: var(--terracotta);
+      color: white;
+      transition: all 0.2s;
+    }
+
+    .checkout-pay-btn:hover:not(:disabled) {
+      background: oklch(0.5 0.12 30);
+      transform: translateY(-1px);
+    }
+
+    .checkout-pay-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .checkout-error {
+      color: oklch(0.55 0.2 25);
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      min-height: 20px;
+    }
+
+    /* Confirmation Step */
+    .checkout-step-confirm {
+      text-align: center;
+      padding: 32px 0;
+    }
+
+    .checkout-success-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .checkout-step-confirm h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: var(--terracotta);
+      margin: 0 0 8px;
+    }
+
+    .checkout-step-confirm p {
+      color: var(--text-light);
+      margin: 0 0 24px;
+    }
+
+    .confirm-email {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .checkout-done-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .checkout-done-btn:hover {
+      background: oklch(0.5 0.12 30);
+    }
+
+    /* Secure badge */
+    .checkout-secure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 480px) {
+      .checkout-modal {
+        width: 96vw;
+      }
+      .checkout-body {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body data-page="shop">
 
@@ -31,56 +342,141 @@
     </nav>
   </header>
 
+  <!-- Hero -->
   <section class="shop-hero">
     <div class="container">
-      <span class="section-tag">🫧 Browse & Shop</span>
-      <h1 data-i18n="shopTitle">Our Collection</h1>
-      <p style="color:var(--text-light);max-width:500px;margin:8px auto 0" data-i18n="shopSub">Each product is lovingly handcrafted in small batches using natural ingredients.</p>
-      <div class="search-bar">
-        <span class="search-bar-icon">🔍</span>
-        <input type="text" id="product-search" placeholder="Search products...">
-      </div>
-      <div class="category-filters">
-        <button class="filter-btn active" data-filter="all" data-i18n="all">All</button>
-        <button class="filter-btn" data-filter="soaps" data-i18n="soaps">Soaps</button>
-        <button class="filter-btn" data-filter="wax-melts" data-i18n="waxMelts">Wax Melts</button>
-        <button class="filter-btn" data-filter="candles" data-i18n="candles">Candles</button>
-        <button class="filter-btn" data-filter="gift-sets" data-i18n="giftSets">Gift Sets</button>
-      </div>
+      <span class="section-tag" data-i18n="shopTag">Handcrafted Collection</span>
+      <h1 data-i18n="shopTitle">Shop</h1>
+      <p style="color:var(--text-light);max-width:520px;margin:8px auto 0" data-i18n="shopSub">Artisanal soaps, wax melts, candles & gift sets.</p>
     </div>
   </section>
 
-  <section class="shop-grid">
+  <!-- Filters + Product Grid -->
+  <section class="section">
     <div class="container">
-      <div class="product-grid" id="shop-products"></div>
+      <div class="filter-bar" role="group" aria-label="Product categories">
+        <button class="filter-btn active" onclick="filterProducts('all')" data-i18n="all">All</button>
+        <button class="filter-btn" onclick="filterProducts('soaps')" data-i18n="soaps">Soaps</button>
+        <button class="filter-btn" onclick="filterProducts('wax-melts')" data-i18n="waxMelts">Wax Melts</button>
+        <button class="filter-btn" onclick="filterProducts('candles')" data-i18n="candles">Candles</button>
+        <button class="filter-btn" onclick="filterProducts('gift-sets')" data-i18n="giftSets">Gift Sets</button>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+      <div class="no-results" id="no-results" style="display:none">
+        <p data-i18n="noResults">No products found</p>
+        <p data-i18n="noResultsSub">Try a different category.</p>
+      </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="footer-logo"><span class="logo-bubble">🫧</span> Bubbly</a>
+          <p>Handcrafted with love in Taiwan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html?filter=soaps">Soaps</a></li>
+            <li><a href="shop.html?filter=candles">Candles</a></li>
+            <li><a href="shop.html?filter=wax-melts">Wax Melts</a></li>
+            <li><a href="shop.html?filter=gift-sets">Gift Sets</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="workshops.html">Workshops</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://instagram.com/bubbly._studio" target="_blank">Instagram</a></li>
+            <li><a href="mailto:hello@thebubblystudio.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="footer-bottom">
-        <p>© 2026 Bubbly Handmade Workshop. All rights reserved. Made with 🫧 & ❤️</p>
+        <p>&copy; 2025 Bubbly Handmade Workshop. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
+  <!-- Cart Drawer -->
   <div class="cart-overlay" onclick="toggleCart()" role="presentation"></div>
   <aside class="cart-drawer" aria-label="Shopping cart" role="dialog">
-    <div class="cart-header">
-      <h3 data-i18n="cartTitle">🛒 Your Cart</h3>
-      <button class="cart-close" onclick="toggleCart()">✕</button>
-    </div>
+    <div class="cart-header"><h3 data-i18n="cartTitle">🛒 Your Cart</h3><button class="cart-close" onclick="toggleCart()">✕</button></div>
     <div class="cart-items"></div>
     <div class="cart-footer">
-      <div class="cart-total">
-        <span data-i18n="total">Total</span>
-        <span class="cart-total-amount">$0.00</span>
-      </div>
-      <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout with Stripe</button>
+      <div class="cart-total"><span data-i18n="total">Total</span><span class="cart-total-amount">$0.00</span></div>
+      <button class="btn btn-gold cart-checkout-btn" onclick="checkout()" data-i18n="checkout">Checkout</button>
     </div>
   </aside>
 
+  <!-- Checkout Modal -->
+  <div id="checkout-modal">
+    <div class="checkout-overlay" onclick="bubblyCheckout.close()"></div>
+    <div class="checkout-modal">
+      <div class="checkout-header">
+        <h3 data-i18n="ckTitle">Checkout</h3>
+        <button class="checkout-close" onclick="bubblyCheckout.close()">✕</button>
+      </div>
+      <div class="checkout-body">
+        <!-- Payment Step -->
+        <div class="checkout-step-payment">
+          <div class="checkout-summary-container"></div>
+
+          <div class="checkout-field">
+            <label data-i18n="ckName">Full Name</label>
+            <input type="text" id="checkout-name" placeholder="Mandy Chen" autocomplete="name">
+          </div>
+          <div class="checkout-field">
+            <label data-i18n="ckEmail">Email</label>
+            <input type="email" id="checkout-email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div id="sq-card-container"></div>
+
+          <div class="checkout-error" id="checkout-error"></div>
+          <button class="checkout-pay-btn" id="checkout-pay-btn" onclick="bubblyCheckout.pay()" data-i18n="ckPayNow">Pay Now</button>
+
+          <div class="checkout-secure">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <span data-i18n="ckSecure">Secured by Square</span>
+          </div>
+        </div>
+
+        <!-- Confirmation Step -->
+        <div class="checkout-step-confirm" style="display:none">
+          <div class="checkout-success-icon">🎉</div>
+          <h3 data-i18n="ckSuccess">Order Confirmed!</h3>
+          <p><span data-i18n="ckSuccessMsg">A confirmation has been sent to</span> <span class="confirm-email"></span></p>
+          <button class="checkout-done-btn" onclick="bubblyCheckout.close()" data-i18n="ckDone">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/checkout.js"></script>
   <script src="assets/js/enhancements.js"></script>
+
+  <script>
+    // Initialize bubblyAPI if available (non-blocking)
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof bubblyAPI !== 'undefined') {
+        bubblyAPI.init({ payments: false }).catch(e => console.log('bubblyAPI init:', e.message));
+      }
+    });
+  </script>
 </body>
 </html>
