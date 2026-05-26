@@ -1,5 +1,65 @@
 # Bubbly Handmade Workshop — Design Changelog
 
+## Phase 1 Complete — Workshop Booking System (2026-05-25)
+
+### Added (Sessions 1-3: Bubbly Backbone Build)
+
+**Square Integration Layer**
+- `assets/js/config.js` — Environment-aware config (sandbox/production auto-detection by hostname)
+- `assets/js/api.js` — `bubblyAPI` abstraction layer: bookings, catalog, payments, customers, loyalty
+  - Custom `BubblyError` class with bilingual error messages (EN/中文)
+  - Request timeout handling with `AbortController`
+  - Rate limit detection (HTTP 429)
+  - Worker health check on init
+  - Input validation (email, phone, customer info)
+  - Loading state helper for button disable/spinner
+- `assets/js/checkout.js` — Square Web Payments checkout modal with demo fallback
+  - Card form rendering via Square SDK
+  - Demo mode with pre-filled test card when SDK unavailable
+  - Order summary from cart, bilingual labels
+  - Payment error handling with inline messages
+
+**Workshop Booking Widget** (`workshops.html` + `assets/js/booking.js`)
+- 3 workshop types: Artisan Soap Making, Soy Candle Pouring, Wax Melt Workshop
+- Multi-step booking flow: Date/Time → Your Info → Confirmation
+- Interactive calendar with availability dots and month navigation
+- Time slot grid with live spot counts and sold-out states
+- Customer info form with inline validation
+- Booking confirmation with reference number and details
+- Graceful demo mode when Square worker not deployed
+
+**Edge Case Handling (Session 3)**
+- Timezone support: detects user timezone, shows workshop times in Pacific Time with local time conversion
+- Double-booking prevention: `isSubmitting` guard, conflict detection from API, auto-redirect to re-pick slot
+- Payment/network failure: retry mechanism (max 2 retries) with error UI and bilingual messages
+- Sold-out slot display: disabled buttons with "Sold Out" label
+- Calendar range limits: no past dates, max 3 months ahead
+- Consistent demo slots: seeded random for deterministic slot generation (no flicker on re-render)
+- Cancellation flow: confirm dialog → API call → cancellation confirmation UI
+- Fallback definitions for `showFieldError`/`clearFieldError` if not loaded from app.js
+
+**CI/CD**
+- `.github/workflows/sync-catalog.yml` — GitHub Action to sync Square Catalog → `products.json`
+  - Daily schedule (6 AM UTC / 11 PM PT)
+  - Manual trigger with sandbox/production environment selector
+  - Preserves bilingual fields from existing products.json
+  - Auto-commit only when changes detected
+
+### Architecture Notes
+- All Square API calls route through Cloudflare Worker proxy (server-side auth)
+- Client-side Square Web SDK used only for payment form rendering
+- Demo mode fallback throughout: booking widget, checkout, and API layer all gracefully degrade
+- No build step required: vanilla HTML/CSS/JS, static hosting on GitHub Pages
+
+### What's Next (Phase 2: Checkout + Payments)
+- Deploy Cloudflare Worker proxy for server-side Square API auth
+- Wire up real Square Catalog service IDs to workshop types
+- Integrate Square Web Payments SDK for workshop deposit collection
+- Add order confirmation emails via Square
+- Product checkout flow on shop.html
+
+---
+
 ## Session 5 — Real Photos + Full-Site Feature Pass (2026-05-24)
 
 ### Added
