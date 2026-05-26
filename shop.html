@@ -236,6 +236,7 @@
       background: var(--terracotta);
       color: white;
       transition: all 0.2s;
+      position: relative;
     }
 
     .checkout-pay-btn:hover:not(:disabled) {
@@ -246,6 +247,28 @@
     .checkout-pay-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+    }
+
+    .checkout-pay-btn.loading {
+      color: transparent;
+    }
+
+    .checkout-pay-btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: ck-spin 0.6s linear infinite;
+    }
+
+    @keyframes ck-spin {
+      to { transform: rotate(360deg); }
     }
 
     .checkout-error {
@@ -471,10 +494,10 @@
   <script src="assets/js/enhancements.js"></script>
 
   <script>
-    // Initialize bubblyAPI if available (non-blocking)
+    // Initialize bubblyAPI with payments enabled for the shop page
     document.addEventListener('DOMContentLoaded', () => {
       if (typeof bubblyAPI !== 'undefined') {
-        bubblyAPI.init({ payments: false }).catch(e => console.log('bubblyAPI init:', e.message));
+        bubblyAPI.init({ payments: true }).catch(e => console.log('bubblyAPI init:', e.message));
       }
     });
   </script>
