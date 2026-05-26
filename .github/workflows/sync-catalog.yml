@@ -1,0 +1,181 @@
+# ============================================
+# Square Catalog → products.json Sync
+# ============================================
+# Fetches product data from Square Catalog API and updates
+# data/products.json with current prices, availability, and images.
+#
+# Runs on schedule (daily 6am UTC / 11pm PT) and on manual trigger.
+# Requires SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID secrets.
+
+name: Sync Square Catalog
+
+on:
+  schedule:
+    # Daily at 6:00 AM UTC (11:00 PM PT previous day)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Square environment'
+        required: true
+        default: 'sandbox'
+        type: choice
+        options:
+          - sandbox
+          - production
+
+permissions:
+  contents: write
+
+env:
+  SQUARE_ENV: ${{ github.event.inputs.environment || 'sandbox' }}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Set Square API base URL
+        run: |
+          if [ "$SQUARE_ENV" = "production" ]; then
+            echo "SQUARE_API_BASE=https://connect.squareup.com/v2" >> $GITHUB_ENV
+          else
+            echo "SQUARE_API_BASE=https://connect.squareupsandbox.com/v2" >> $GITHUB_ENV
+          fi
+
+      - name: Fetch Square Catalog
+        id: fetch
+        env:
+          SQUARE_ACCESS_TOKEN: ${{ secrets.SQUARE_ACCESS_TOKEN }}
+          SQUARE_LOCATION_ID: ${{ secrets.SQUARE_LOCATION_ID }}
+        run: |
+          node << 'SCRIPT'
+          const https = require('https');
+          const fs = require('fs');
+          const url = require('url');
+
+          const API_BASE = process.env.SQUARE_API_BASE;
+          const TOKEN = process.env.SQUARE_ACCESS_TOKEN;
+          const LOCATION_ID = process.env.SQUARE_LOCATION_ID;
+
+          if (!TOKEN || !LOCATION_ID) {
+            console.error('Missing SQUARE_ACCESS_TOKEN or SQUARE_LOCATION_ID');
+            process.exit(1);
+          }
+
+          function squareGet(endpoint) {
+            return new Promise((resolve, reject) => {
+              const parsed = new URL(API_BASE + endpoint);
+              const options = {
+                hostname: parsed.hostname,
+                path: parsed.pathname + parsed.search,
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${TOKEN}`,
+                  'Content-Type': 'application/json',
+                  'Square-Version': '2024-12-18'
+                }
+              };
+              const req = https.request(options, (res) => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => {
+                  if (res.statusCode >= 400) {
+                    reject(new Error(`Square API ${res.statusCode}: ${data}`));
+                  } else {
+                    resolve(JSON.parse(data));
+                  }
+                });
+              });
+              req.on('error', reject);
+              req.end();
+            });
+          }
+
+          async function main() {
+            console.log(`Fetching catalog from ${process.env.SQUARE_ENV} environment...`);
+
+            // Read existing products.json
+            const existing = JSON.parse(fs.readFileSync('data/products.json', 'utf8'));
+            const existingMap = {};
+            existing.forEach(p => { existingMap[p.id] = p; });
+
+            // Fetch catalog items
+            const catalog = await squareGet('/catalog/list?types=ITEM');
+            const items = catalog.objects || [];
+
+            console.log(`Found ${items.length} catalog items`);
+
+            // Map Square items to our product format
+            const products = items.map(item => {
+              const variation = item.item_data?.variations?.[0];
+              const priceMoney = variation?.item_variation_data?.price_money;
+              const price = priceMoney ? priceMoney.amount / 100 : 0;
+              const currency = priceMoney?.currency || 'CAD';
+
+              // Preserve bilingual fields from existing data if available
+              const existingProduct = existingMap[item.id] || {};
+
+              return {
+                id: item.id,
+                name: item.item_data?.name || existingProduct.name || 'Untitled',
+                nameCn: existingProduct.nameCn || '',
+                price: price,
+                currency: currency,
+                category: item.item_data?.category_id || existingProduct.category || '',
+                description: item.item_data?.description || existingProduct.description || '',
+                descriptionCn: existingProduct.descriptionCn || '',
+                image: existingProduct.image || '',
+                emoji: existingProduct.emoji || '🫧',
+                inStock: !item.is_deleted,
+                squareVariationId: variation?.id || '',
+                updatedAt: item.updated_at || new Date().toISOString()
+              };
+            });
+
+            // Write updated products.json
+            fs.writeFileSync('data/products.json', JSON.stringify(products, null, 2) + '\n');
+            console.log(`Updated products.json with ${products.length} products`);
+
+            // Set output
+            const core = require('@actions/core') || { setOutput: (k,v) => console.log(`::set-output name=${k}::${v}`) };
+            console.log(`::set-output name=count::${products.length}`);
+          }
+
+          main().catch(err => {
+            console.error('Sync failed:', err.message);
+            process.exit(1);
+          });
+          SCRIPT
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet data/products.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected in products.json"
+            git diff --stat data/products.json
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/products.json
+          git commit -m "chore: sync products from Square Catalog (${{ env.SQUARE_ENV }})
+
+          Automated sync via GitHub Actions.
+          Environment: ${{ env.SQUARE_ENV }}
+          Run: ${{ github.run_id }}"
+          git push
