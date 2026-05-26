@@ -272,9 +272,10 @@ function t(key) { return (i18n[lang] && i18n[lang][key]) || (i18n.en[key]) || ke
 async function loadProducts() {
   // Try Square Catalog API first, fall back to local JSON
   if (typeof bubblyAPI !== 'undefined' && bubblyAPI.isReady()) {
-    bubblyAPI.getProducts().then(squareItems => {
+    try {
+      const squareItems = await bubblyAPI.getProducts();
       if (squareItems && squareItems.length) {
-        window.products = squareItems.map(item => ({
+        products = squareItems.map(item => ({
           id: item.id,
           name: item.itemData?.name || 'Product',
           nameCn: item.itemData?.name || '',
@@ -286,21 +287,23 @@ async function loadProducts() {
           emoji: '',
           image: item.itemData?.imageIds?.[0] || ''
         }));
-        renderProducts(window.products);
         return;
       }
-      loadFromJSON();
-    }).catch(() => loadFromJSON());
-  } else {
-    loadFromJSON();
+    } catch (e) {
+      // Fall through to JSON
+    }
   }
+  await loadFromJSON();
 }
 
-function loadFromJSON() {
-  fetch('data/products.json')
-    .then(r => r.json())
-    .then(data => { window.products = data; renderProducts(data); })
-    .catch(err => console.error('Failed to load products:', err));
+async function loadFromJSON() {
+  try {
+    const r = await fetch('data/products.json');
+    const data = await r.json();
+    products = data;
+  } catch (err) {
+    console.error('Failed to load products:', err);
+  }
 }
 
 // --- Cart Functions ---
@@ -444,6 +447,17 @@ function renderProducts(containerId, filterCategory, limit) {
       setTimeout(() => el.classList.add('visible'), i * 80);
     });
   });
+}
+
+// --- Filter Products (global, called from onclick in HTML) ---
+function filterProducts(category) {
+  currentFilter = category || 'all';
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    const btnCat = b.dataset.filter || '';
+    const onclickMatch = (b.getAttribute('onclick') || '').includes("'" + currentFilter + "'");
+    b.classList.toggle('active', btnCat === currentFilter || onclickMatch);
+  });
+  renderProducts('shop-products', currentFilter);
 }
 
 // --- Language Toggle ---
