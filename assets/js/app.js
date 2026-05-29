@@ -1,6 +1,6 @@
 /* ============================================
-   Bubbly Handmade Workshop â Main JS
-   ============================================ */
+   Bubbly Handmade Workshop — Main JS
+============================================ */
 
 // --- State ---
 let products = [];
@@ -21,7 +21,7 @@ const i18n = {
     aboutTag: 'Our Philosophy',
     aboutTitle: 'Made by Hand, Given with Heart',
     aboutText1: 'Every bar of soap, every wax melt, and every candle is handcrafted by Mandy with love and intention. We believe self-care should be beautiful, natural, and accessible.',
-    aboutText2: 'Using only the finest botanicals, essential oils, and sustainable ingredients â because your skin deserves the best.',
+    aboutText2: 'Using only the finest botanicals, essential oils, and sustainable ingredients — because your skin deserves the best.',
     learnMore: 'Learn More',
     natural: 'Natural',
     handmade: 'Handmade',
@@ -39,10 +39,10 @@ const i18n = {
     shopSub: 'Each product is lovingly handcrafted in small batches using natural ingredients.',
     aboutHeroTitle: 'Our Story',
     aboutHeroSub: 'The heart and soul behind every bubble.',
-    aboutStoryTitle: 'Hi, I\'m Mandy ð',
-    aboutStory1: 'What started as a weekend hobby quickly blossomed into a passion. I fell in love with the art of soap-making â the way dried rose petals catch the light, the calming scent of lavender filling the room, the joy of creating something beautiful with my own hands.',
+    aboutStoryTitle: 'Hi, I\'m Mandy 👋',
+    aboutStory1: 'What started as a weekend hobby quickly blossomed into a passion. I fell in love with the art of soap-making — the way dried rose petals catch the light, the calming scent of lavender filling the room, the joy of creating something beautiful with my own hands.',
     aboutStory2: 'Bubbly Handmade Workshop was born from a simple belief: self-care products should be as natural and beautiful as the ingredients that make them. Every item is handcrafted in small batches, using real botanicals and pure essential oils.',
-    aboutStory3: 'When you choose Bubbly, you\'re not just buying a product â you\'re supporting a family dream and getting a little piece of handmade happiness.',
+    aboutStory3: 'When you choose Bubbly, you\'re not just buying a product — you\'re supporting a family dream and getting a little piece of handmade happiness.',
     valuesTitle: 'What We Stand For',
     pureTitle: 'Pure Ingredients',
     pureSub: 'No harsh chemicals, no artificial colors. Just nature\'s finest botanicals and essential oils.',
@@ -86,7 +86,7 @@ const i18n = {
     wsTakeHome: 'Take Home',
     wsTakeHomeDesc: 'Your handmade creations',
     wsGroupSize: 'Small Groups',
-    wsGroupDesc: '2â8 people per class',
+    wsGroupDesc: '2–8 people per class',
     wsPrice: 'From $45',
     wsPriceDesc: 'All materials included',
     wsChooseTag: 'Book Your Spot',
@@ -138,130 +138,130 @@ const i18n = {
     ckDone: 'Done',
   },
   zh: {
-    heroTitle: 'ç¨<span>æ</span>èè±èæå·¥è£½ä½',
-    heroSub: 'æ¯ä¸ç¨®é¦æ°é½æå®çæäºãæ¢ç´¢ç¨çæ­£ä¹¾ç¥è±åç´ç²¾æ²¹è£½ä½çæå·¥çãè çåè ç­ã',
-    shopNow: 'ç«å³é¸è³¼',
-    ourStory: 'æåçæäº',
-    featuredTag: 'çºæ¨ç²¾é¸',
-    featuredTitle: 'ç²¾é¸åå',
-    featuredSub: 'æåæååæçä½åï¼å°æ¹éç²¾å¿è£½ä½ã',
-    aboutTag: 'æåççå¿µ',
-    aboutTitle: 'æå·¥è£½ä½ï¼ç¨å¿çµ¦äº',
-    aboutText1: 'æ¯ä¸å¡æå·¥çãæ¯ä¸çè çãæ¯ä¸æ¯è ç­ï¼é½æ¯Mandyç¨æèå¿ææå·¥è£½ä½çãæåç¸ä¿¡èªæåµè­·æè©²æ¯ç¾éºãå¤©ç¶ä¸è§¸æå¯åçã',
-    aboutText2: 'åªä½¿ç¨æåªè³ªçæ¤ç©ãç²¾æ²¹åæ°¸çºåæââå çºæ¨çèèå¼å¾æå¥½çã',
-    learnMore: 'äºè§£æ´å¤',
-    natural: 'å¤©ç¶',
-    handmade: 'æå·¥',
-    sustainable: 'æ°¸çº',
-    instaTag: 'è¿½è¹¤æå',
+    heroTitle: '用<span>愛</span>與花卉手工製作',
+    heroSub: '每一種香氣都有它的故事。探索用真正乾燥花和純粹油製作的手工皂、蜠燭和蜠燭。',
+    shopNow: '立即選購',
+    ourStory: '我們的故事',
+    featuredTag: '為您精選',
+    featuredTitle: '精選商品',
+    featuredSub: '我們最受喜愛的作品，小批量精心製作。',
+    aboutTag: '我們的理念',
+    aboutTitle: '手工製作，用心給予',
+    aboutText1: '每一塊手工皂、每一個蜠燭、每一支蜠燭，都是Mandy用愛與心意手工製作的。我們相信自我呵護應該是美麗、天然且觸手可及的。',
+    aboutText2: '只使用最優質的植物、精油和永續原料——因為您的肌膚值得最好的。',
+    learnMore: '了解更多',
+    natural: '天然',
+    handmade: '手工',
+    sustainable: '永續',
+    instaTag: '追蹤我們',
     instaTitle: '@bubbly._studio',
-    instaSub: 'å¨Instagramè¿½è¹¤æåçæç¨ï¼ç²åå¹å¾è±çµ®ãæ°åç¼ä½åæ¯æ¥éæã',
-    followUs: 'è¿½è¹¤Instagram',
-    all: 'å¨é¨',
-    soaps: 'æå·¥ç',
-    waxMelts: 'è ç',
-    candles: 'è ç­',
-    giftSets: 'ç¦®ç',
-    shopTitle: 'æåçç³»å',
-    shopSub: 'æ¯ä»¶ååé½æ¯ç¨å¤©ç¶åæå°æ¹éæå·¥ç²¾å¿è£½ä½ã',
-    workshopTitle: 'å·¥ä½åèé«é©',
-    workshopSub: 'è¦ªæè£½ä½å±¬æ¼æ¨çé¦æ°èç¾éºã',
-    bookClass: 'é ç´èª²ç¨',
-    aboutHeroTitle: 'æåçæäº',
-    aboutHeroSub: 'æ¯ä¸åæ³¡æ³¡èå¾çå¿èéé­ã',
-    aboutStoryTitle: 'å¨ï¼ææ¯Mandy ð',
-    aboutStory1: 'ä¸åé±æ«çæå¥½å¾å¿«å°±è®æäºä¸ç¨®ç±æãææä¸äºæå·¥ççèè¡ââä¹¾ç¥ç«ç°è±ç£å¨åç·ä¸çéèãè°è¡£èé¦æ°£ç°æ¼«æ´åæ¿éçå¯§éãç¨èªå·±éæåµé ç¾å¥½äºç©çåæã',
-    aboutStory2: 'Bubbly Handmade Workshopèªçæ¼ä¸åç°¡å®çä¿¡å¿µï¼èªæåµè­·çç¢åæè©²åè£½ä½å®åçåæä¸æ¨£å¤©ç¶ç¾éºãæ¯ä¸ä»¶ååé½æ¯å°æ¹éæå·¥è£½ä½ï¼ä½¿ç¨çæ­£çæ¤ç©åç´ç²¾æ²¹ã',
-    aboutStory3: 'ç¶æ¨é¸æBubblyï¼æ¨ä¸ååæ¯è³¼è²·ä¸ä»¶ååââæ¨å¨æ¯æä¸åå®¶åº­çå¤¢æ³ï¼ä¸¦ç²å¾ä¸ä»½æå·¥å¹¸ç¦ã',
-    valuesTitle: 'æåçå æ',
-    pureTitle: 'ç´æ·¨åæ',
-    pureSub: 'æ²æåºæ¿åå­¸ç©è³ªï¼æ²æäººå·¥è²ç´ ãåªæå¤§èªç¶æå¥½çæ¤ç©åç²¾æ²¹ã',
-    craftTitle: 'å°æ¹éæå·¥',
-    craftSub: 'æ¯ä¸ä»¶ååé½æ¯æå·¥å°æ¹éè£½ä½ï¼ä»¥ç¢ºä¿æé«åè³ªåç¨å¿ã',
-    ecoTitle: 'ç°ä¿æè­',
-    ecoSub: 'æ°¸çºåè£ãå¯åæ¶ææï¼è´åæ¼æ¸å°æåçç¢³è¶³è·¡ã',
-    contactTitle: 'è¯ç¹«æå',
-    contactSub: 'æåå¾æ³è½å°æ¨çè²é³ï¼æåé¡ãå®¢è£½è¨å®ï¼æåªæ¯æ³æåæå¼ï¼',
-    yourName: 'æ¨çå§å',
-    yourEmail: 'æ¨çé»éµ',
-    subject: 'ä¸»é¡',
-    message: 'æ¨ççè¨',
-    send: 'ç¼éè¨æ¯',
-    email: 'é»éµ',
+    instaSub: '在Instagram追蹤我們的旅程，獲取幕後花絮、新品發佈和每日靈感。',
+    followUs: '追蹤Instagram',
+    all: '全部',
+    soaps: '手工皂',
+    waxMelts: '蜠磚',
+    candles: '蜠燭',
+    giftSets: '禮盒',
+    shopTitle: '我們的系列',
+    shopSub: '每件商品都是用天然原料小批量手工精心製作。',
+    workshopTitle: '工作坊與體驗',
+    workshopSub: '親手製作屬於您的香氣與美麗。',
+    bookClass: '預約課程',
+    aboutHeroTitle: '我們的故事',
+    aboutHeroSub: '每一個泡泡背後的心與靈魂。',
+    aboutStoryTitle: '嗨，我是Mandy 👋',
+    aboutStory1: '一個週末的愛好很快就變成了一種熱愛。我愛上了手工皂的藝術——乾燥玄瑰花瓣在光線下的閃耀、薰衣草香氣環漫整個房間的寧靜、用自己雙手創造美好事物的喜悅。',
+    aboutStory2: 'Bubbly Handmade Workshop誕生於一個簡單的信念：自我呵護的產品應該和製作它們的原料一樣天然美麗。每一件商品都是小批量手工製作，使用真正的植物和純粹油。',
+    aboutStory3: '當您選擇Bubbly，您不僅僅是購買一件商品——您在支持一個家庭的夢想，並獲得一份手工幸福。',
+    valuesTitle: '我們的信念',
+    pureTitle: '純淨原料',
+    pureSub: '沒有刺激化學物質，沒有人工色素。只有大自然最好的植物和精油。',
+    craftTitle: '小批量手工',
+    craftSub: '每一件商品都是手工小批量製作，以確保最高品質和用心。',
+    ecoTitle: '環保意識',
+    ecoSub: '永續包裝、可回收材料，致力於減少我們的碳足跡。',
+    contactTitle: '聯繫我們',
+    contactSub: '我們很想聽到您的聲音！有問題、客製訂單，或只是想打個招呼？',
+    yourName: '您的姓名',
+    yourEmail: '您的電郵',
+    subject: '主題',
+    message: '您的留言',
+    send: '發送訊息',
+    email: '電郵',
     instagram: 'Instagram',
-    location: 'å°é»',
-    cartTitle: 'æ¨çè³¼ç©è»',
-    cartEmpty: 'è³¼ç©è»æ¯ç©ºç',
-    cartEmptySub: 'å å¥ä¸äºBubblyçç¾å¥½å§ï¼',
-    total: 'ç¸½è¨',
-    checkout: 'ä½¿ç¨Stripeçµå¸³',
-    addedToCart: 'å·²å å¥è³¼ç©è»ï¼',
-    home: 'é¦é ', shop: 'é¸è³¼', workshops: 'å·¥ä½å', about: 'éæ¼', contact: 'è¯ç¹«',
-    nameRequired: 'è«è¼¸å¥æ¨çå§å',
-    emailInvalid: 'è«è¼¸å¥ææçé»éµå°å',
-    messageRequired: 'è«è¼¸å¥çè¨',
-    newsletterSuccess: 'æ­¡è¿å å¥Bubblyå¤§å®¶åº­ï¼',
-    newsletterExists: 'æ¨å·²ç¶è¨é±äºï¼',
-    noResults: 'æ²ææ¾å°åå',
-    noResultsSub: 'åè©¦ä¸åçæå°æçè¦½å¨é¨ååã',
-    cartEmptyAction: 'çè¦½æåçç³»å',
+    location: '地點',
+    cartTitle: '您的購物車',
+    cartEmpty: '購物車是空的',
+    cartEmptySub: '加入一些Bubbly的美好吧！',
+    total: '總計',
+    checkout: '使用Stripe結帳',
+    addedToCart: '已加入購物車！',
+    home: '首頁', shop: '選購', workshops: '工作坊', about: '關於', contact: '聯繫',
+    nameRequired: '請輸入您的姓名',
+    emailInvalid: '請輸入有效的電郵地址',
+    messageRequired: '請輸入留言',
+    newsletterSuccess: '歡迎加入Bubbly大家庭！',
+    newsletterExists: '您已經訂閱了！',
+    noResults: '沒有找到商品',
+    noResultsSub: '嘗試不同的搜尋或瀏覽全部商品。',
+    cartEmptyAction: '瀏覽我們的系列',
 
-    // --- å·¥ä½åé ç´ ---
-    wsTag: 'è¦ªæé«é©',
-    wsDuration: '2 å°æ',
-    wsDurationDesc: 'è¼é¬çåµææå',
-    wsTakeHome: 'å¸¶åå®¶',
-    wsTakeHomeDesc: 'æ¨çæä½ä½å',
-    wsGroupSize: 'å°ç­å¶',
-    wsGroupDesc: 'æ¯ç­ 2â8 äºº',
-    wsPrice: '$45 èµ·',
-    wsPriceDesc: 'åå«ææææ',
-    wsChooseTag: 'é ç´åé¡',
-    wsChooseTitle: 'é¸æå·¥ä½å',
-    wsChooseSub: 'é¸æå·¥ä½åé¡åéå§é ç´ã',
-    wsBadgePopular: 'ç±é',
-    wsBadgeNew: 'æ°èª²ç¨',
-    wsSoapTitle: 'æå·¥çè£½ä½',
-    wsSoapDesc: 'å­¸ç¿ä½¿ç¨ç²¾æ²¹åä¹¾ç¥è±æè£½ä½å·è£½æå·¥çã',
-    wsCandleTitle: 'è ç­è£½ä½',
-    wsCandleDesc: 'è£½ä½æå·¥å¤§è±è ç­ï¼æ­éèªé¸é¦æ°ã',
-    wsWaxTitle: 'è çèè¡',
-    wsWaxDesc: 'ç¨ä¹¾ç¥è±åé¦æ°æ²¹è¨­è¨ç¾éºçè çã',
-    ws2hrs: '2 å°æ',
-    ws90min: '90 åé',
-    wsMaxPeople: 'æå¤ 8 äºº',
-    wsPerPerson: 'æ¯äºº',
-    wsStepDate: 'æ¥ææé',
-    wsStepInfo: 'æ¨çè³æ',
-    wsStepConfirm: 'ç¢ºèª',
-    wsPickDateTime: 'é¸ææ¥æåæé',
-    wsYourDetails: 'æ¨çè³æ',
-    wsFirstName: 'å',
-    wsLastName: 'å§',
-    wsEmail: 'é»å­ä¿¡ç®±',
-    wsPhone: 'é»è©±ï¼é¸å¡«ï¼',
-    wsNotes: 'ç¹æ®éæ±æåè¨»...',
-    wsBookingProcessing: 'æ­£å¨èçæ¨çé ç´...',
-    wsBookingSuccess: 'é ç´æåï¼',
-    wsBookingSuccessMsg: 'ç¢ºèªè©³æå·²ç¼éè³æ¨çä¿¡ç®±ã',
-    wsBackHome: 'åå°é¦é ',
-    wsBack: 'è¿å',
-    wsNext: 'ä¸ä¸æ­¥',
+    // --- 工作坊預約 ---
+    wsTag: '親手體驗',
+    wsDuration: '2 小時',
+    wsDurationDesc: '輕鬆的創意時光',
+    wsTakeHome: '帶回家',
+    wsTakeHomeDesc: '您的手作作品',
+    wsGroupSize: '小班制',
+    wsGroupDesc: '每班 2–8 人',
+    wsPrice: '$45 起',
+    wsPriceDesc: '包含所有材料',
+    wsChooseTag: '預約席位',
+    wsChooseTitle: '選擇工作坊',
+    wsChooseSub: '選擇工作坊類型開始預約。',
+    wsBadgePopular: '熱門',
+    wsBadgeNew: '新課程',
+    wsSoapTitle: '手工皂製作',
+    wsSoapDesc: '學習使用精油和乾燥花材製作冷製手工皂。',
+    wsCandleTitle: '蜠燭製作',
+    wsCandleDesc: '製作手工大豆蜠燭，搭配自選香氣。',
+    wsWaxTitle: '蜠磚藝術',
+    wsWaxDesc: '用乾燥花和香氣油設計美麗的蜠磚。',
+    ws2hrs: '2 小時',
+    ws90min: '90 分鐘',
+    wsMaxPeople: '最多 8 人',
+    wsPerPerson: '每人',
+    wsStepDate: '日期時間',
+    wsStepInfo: '您的資料',
+    wsStepConfirm: '確認',
+    wsPickDateTime: '選擇日期和時間',
+    wsYourDetails: '您的資料',
+    wsFirstName: '名',
+    wsLastName: '姓',
+    wsEmail: '電子信箱',
+    wsPhone: '電話（選填）',
+    wsNotes: '特殊需求或備註...',
+    wsBookingProcessing: '正在處理您的預約...',
+    wsBookingSuccess: '預約成功！',
+    wsBookingSuccessMsg: '確認詳情已發送至您的信箱。',
+    wsBackHome: '回到首頁',
+    wsBack: '返回',
+    wsNext: '下一步',
     // --- Checkout & Shop ---
-    shopTag: '手工精心制作',
-    ckTitle: '结账',
-    ckOrderSummary: '订单摘要',
-    ckTotal: '合计',
+    shopTag: '手工精心製作',
+    ckTitle: '結帳',
+    ckOrderSummary: '訂單摘要',
+    ckTotal: '合計',
     ckName: '姓名',
-    ckEmail: '电子邮件',
-    ckCardNumber: '卡号',
+    ckEmail: '電子郵件',
+    ckCardNumber: '卡號',
     ckExpiry: '有效期',
     ckPayNow: '立即付款',
-    ckProcessing: '处理中...',
-    ckEmailRequired: '请输入有效的电子邮件',
+    ckProcessing: '處理中...',
+    ckEmailRequired: '請輸入有效的電子郵件',
     ckSecure: '由 Square 提供安全支付',
-    ckSuccess: '订单已确认！',
-    ckSuccessMsg: '确认信已发送至',
+    ckSuccess: '訂單已確認！',
+    ckSuccessMsg: '確認信已發送至',
     ckDone: '完成',
   }
 };
@@ -362,7 +362,7 @@ function renderCart() {
   if (cart.length === 0) {
     itemsEl.innerHTML = `
       <div class="cart-empty">
-        <div class="cart-empty-emoji">ð«§</div>
+        <div class="cart-empty-emoji">🫧</div>
         <p>${t('cartEmpty')}</p>
         <p style="font-size:0.85rem;margin-top:4px">${t('cartEmptySub')}</p>
       </div>`;
@@ -378,7 +378,7 @@ function renderCart() {
             <div class="cart-item-price">$${(p.price * item.qty).toFixed(2)}</div>
           </div>
           <div class="cart-item-qty">
-            <button class="qty-btn" onclick="updateQty('${p.id}', -1)">â</button>
+            <button class="qty-btn" onclick="updateQty('${p.id}', -1)">−</button>
             <span>${item.qty}</span>
             <button class="qty-btn" onclick="updateQty('${p.id}', 1)">+</button>
           </div>
@@ -403,7 +403,7 @@ function showToast(message) {
     toast.className = 'toast';
     document.body.appendChild(toast);
   }
-  toast.innerHTML = 'ð«§ ' + message;
+  toast.innerHTML = '🫧 ' + message;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
@@ -464,6 +464,7 @@ function filterProducts(category) {
 function toggleLang() {
   lang = lang === 'en' ? 'zh' : 'en';
   localStorage.setItem('bubbly-lang', lang);
+  document.documentElement.lang = lang;
   location.reload();
 }
 
@@ -515,8 +516,6 @@ function checkout() {
   const btn = document.querySelector('.cart-checkout-btn');
   if (btn?.disabled) return;
   if (btn) { btn.disabled = true; btn.textContent = '...'; }
-  // In production, this would redirect to Stripe Checkout
-  // For now, show a message
   alert('Stripe Checkout integration ready!\n\nTo activate:\n1. Add your Stripe publishable key in app.js\n2. Create products in your Stripe Dashboard\n3. Map product IDs to Stripe Price IDs\n\nTotal: $' + getCartTotal().toFixed(2));
 }
 
@@ -571,12 +570,12 @@ function handleContactSubmit(e) {
   const submitBtn = form.querySelector('button[type="submit"]');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.textContent = lang === 'zh' ? 'ç¼éä¸­...' : 'Sending...';
+    submitBtn.textContent = lang === 'zh' ? '發送中...' : 'Sending...';
   }
 
   // Simulate sending (replace with real API)
   setTimeout(() => {
-    showToast(lang === 'zh' ? 'è¨æ¯å·²ç¼éï¼æè¬æ¨ï¼' : 'Message sent! Thank you!');
+    showToast(lang === 'zh' ? '訊息已發送，感謝您！' : 'Message sent! Thank you!');
     form.reset();
     if (submitBtn) {
       submitBtn.disabled = false;
@@ -593,7 +592,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Update lang toggle button
   const langBtn = document.querySelector('.lang-toggle');
-  if (langBtn) langBtn.textContent = lang === 'en' ? 'ä¸­æ' : 'EN';
+  if (langBtn) langBtn.textContent = lang === 'en' ? '中文' : 'EN';
+
+  // Set document language
+  document.documentElement.lang = lang;
 
   // Page-specific init
   const page = document.body.dataset.page;
@@ -634,7 +636,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       setTimeout(() => {
         showToast(t('newsletterSuccess'));
         emailInput.value = '';
-        if (btn) { btn.disabled = false; btn.textContent = lang === 'zh' ? 'è¨é±' : 'Subscribe'; }
+        if (btn) { btn.disabled = false; btn.textContent = lang === 'zh' ? '訂閱' : 'Subscribe'; }
       }, 600);
     });
   }
