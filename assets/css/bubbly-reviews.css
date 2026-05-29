@@ -1,0 +1,145 @@
+/* Bubbly Reviews — Styles
+   Matches OKLCH palette: terracotta, linen, dusty teal, warm honey */
+
+/* ── Review Stars ── */
+.review-stars {
+  display: flex;
+  gap: 2px;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.review-star { color: oklch(0.75 0.05 85); transition: color 0.15s; }
+.review-star--filled { color: oklch(0.72 0.14 70); }
+.review-stars--interactive .review-star:hover,
+.review-stars--interactive .review-star:hover ~ .review-star { color: oklch(0.72 0.14 70); }
+
+/* ── Review Card ── */
+.review-card {
+  background: oklch(0.97 0.01 90);
+  border: 1px solid oklch(0.92 0.02 85);
+  border-radius: var(--radius, 12px);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+.review-text { margin: 0.5rem 0; font-size: 0.95rem; line-height: 1.6; color: oklch(0.35 0.02 50); }
+.review-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.85rem; }
+.review-name { font-weight: 600; color: oklch(0.35 0.02 50); font-style: normal; }
+.review-product { color: oklch(0.55 0.08 180); }
+.review-verified { color: oklch(0.55 0.1 150); font-size: 0.8rem; }
+
+/* ── Review Modal Overlay ── */
+.review-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: oklch(0.15 0 0 / 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  animation: reviewFadeIn 0.3s ease;
+}
+@keyframes reviewFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.review-modal {
+  background: oklch(0.98 0.01 90);
+  border-radius: var(--radius, 16px);
+  padding: 2rem;
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px oklch(0.15 0 0 / 0.2);
+  animation: reviewSlideUp 0.3s ease;
+}
+@keyframes reviewSlideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.review-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: oklch(0.5 0 0);
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.review-modal h3 {
+  font-family: 'Young Serif', serif;
+  font-size: 1.5rem;
+  color: oklch(0.35 0.02 50);
+  margin: 0 0 0.25rem;
+}
+.review-modal-prompt {
+  color: oklch(0.5 0.02 50);
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* ── Review Form ── */
+.review-form-group {
+  margin-bottom: 1.25rem;
+}
+.review-form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: oklch(0.35 0.02 50);
+}
+.review-form-group .required { color: oklch(0.6 0.2 25); }
+
+.review-form input[type="text"],
+.review-form textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid oklch(0.88 0.02 85);
+  border-radius: 8px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 0.95rem;
+  background: white;
+  color: oklch(0.25 0 0);
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.review-form input:focus,
+.review-form textarea:focus {
+  outline: none;
+  border-color: oklch(0.55 0.08 180);
+  box-shadow: 0 0 0 3px oklch(0.55 0.08 180 / 0.15);
+}
+
+.review-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.review-error {
+  color: oklch(0.55 0.2 25);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.review-success {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 1.2rem;
+  color: oklch(0.45 0.1 150);
+  font-weight: 600;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .review-modal { padding: 1.5rem; }
+  .review-modal h3 { font-size: 1.25rem; }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .review-modal-overlay,
+  .review-modal { animation: none; }
+  .review-star { transition: none; }
+}
