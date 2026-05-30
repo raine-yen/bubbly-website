@@ -597,6 +597,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Set document language
   document.documentElement.lang = lang;
 
+  // Load LXGW WenKai TC for Chinese and apply font
+  if (lang === 'zh') {
+    const fontLink = document.createElement('link');
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap';
+    fontLink.rel = 'stylesheet';
+    document.head.appendChild(fontLink);
+
+    const zhStyle = document.createElement('style');
+    zhStyle.textContent = `
+      html[lang="zh"] body,
+      html[lang="zh"] h1, html[lang="zh"] h2, html[lang="zh"] h3, html[lang="zh"] h4,
+      html[lang="zh"] p, html[lang="zh"] a, html[lang="zh"] button, html[lang="zh"] input,
+      html[lang="zh"] label, html[lang="zh"] span, html[lang="zh"] li, html[lang="zh"] td,
+      html[lang="zh"] textarea, html[lang="zh"] select, html[lang="zh"] cite,
+      html[lang="zh"] blockquote, html[lang="zh"] footer {
+        font-family: 'LXGW WenKai TC', 'Figtree', sans-serif !important;
+      }
+      html[lang="zh"] h1, html[lang="zh"] h2, html[lang="zh"] h3 {
+        font-family: 'LXGW WenKai TC', 'Young Serif', serif !important;
+        font-weight: 700;
+      }
+    `;
+    document.head.appendChild(zhStyle);
+  }
+
   // Page-specific init
   const page = document.body.dataset.page;
 
